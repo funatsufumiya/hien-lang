@@ -8,12 +8,14 @@
 - 静的片付け言語, 関数型言語, オブジェクト指向
 - 型推論
 - イミュータブルな変数とミュータブルな変数
-- LLVMを用いた、クロスプラットフォームでJIT＋静的コンパイルなハイブリッド言語
+- <s>LLVMを用いた、クロスプラットフォームでJIT＋静的コンパイルなハイブリッド言語</s>
+- C++による静的コンパイルに加え、REPL、JITコンパイル
+- Boehm GC による保守的GCとスマートポインタのハイブリッド
 - REPL, ネイティブコードの出力（exe,appなどを簡単に作れる）
 
 ## 詳細な言語仕様
 
-### let, var, and type inference
+### let, var, 型推論
 
 ```
 let a = 3 # immutable
@@ -56,6 +58,9 @@ def fib(n){
 		else => fib(n-1) + fib(n-2)
 	}
 }
+
+def hello(s:Str) => "hello, #{s}"
+let hello2 = (s:Str => "hello, #{s}")
 ```
 
 コンパイル後
@@ -229,4 +234,44 @@ for(let n : arr)[
 arr.each(puts _) # best
 
 arr.size.times(n => puts n) # another code
+```
+
+### 高階関数
+
+```
+def apply(list, fn){
+	return list.map(fn)
+}
+```
+
+### Battery Included
+
+```
+let s = ['I','am','Yamada'].join(" ").capitalize # I AM YAMADA
+let sums = [1..n].inject(:+) in [1..3].map(_ * 10) # [55, 210, 465]
+
+{
+	Str.hello = (=> "hello, #{this}")
+	"world".hello # "hello, world"
+}
+
+"world".hello # compile error
+```
+
+### インライン展開
+
+```
+inline def nil!(any:Any){
+	`#{any} = nil`
+}
+
+var s = "some string"
+nil! s # s = nil
+
+inline def capitalize!(s:Str){
+	`#{s} = #{s}.capitalize`
+}
+
+var s = "some string"
+capitalize! s # s = "SOME STRING"
 ```
