@@ -1,3 +1,1 @@
-- cppo
-http://mjambon.com/cppo.html
-BSD License (http://mjambon.com/cppo-license.txt)
+
