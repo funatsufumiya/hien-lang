@@ -1,6 +1,6 @@
-# hien-lang 言語設計
+# hien-lang Language Spec
 
-## 基本仕様
+## Features
 
 - ゲームやリアルタイムシステムに使える、高速で高レベルな言語
 - 速度のためにある程度言語仕様を妥協
@@ -13,9 +13,9 @@
 - Boehm GC による保守的GCとスマートポインタのハイブリッド
 - REPL, ネイティブコードの出力（exe,appなどを簡単に作れる）
 
-## 詳細な言語仕様
+## Detail
 
-### let, var, 型推論
+### let, var, type inference
 
 ```
 let a = 3 # immutable
@@ -25,7 +25,7 @@ a = 5 # compile error
 b = 5 # ok
 ```
 
-コンパイル後
+Generated C++ code
 
 ```c++
 #line 1 "var.hi"
@@ -40,7 +40,7 @@ b = 5;
 
 ```
 
-### 関数
+### Functions
 
 ```
 def sum(from: Int, to: Int){
@@ -63,7 +63,7 @@ def hello(s:Str) => "hello, #{s}"
 let hello2 = (s:Str => "hello, #{s}")
 ```
 
-コンパイル後
+Generated C++ code
 
 ```c++
 int sum(int from, int to){
@@ -89,7 +89,7 @@ int fib(int n){
 }
 ```
 
-### 並列化
+### Parallel execution
 
 ```
 let list = [1,3,5,7]
@@ -97,7 +97,7 @@ list.paraMap(n => n*n)
 list.paraEach(n => puts n)
 ```
 
-コンパイル後
+Generated C++ code
 
 ```c++
 const Array<int> list = {1,3,5,7};
@@ -115,7 +115,7 @@ pararellEach(list, __anon2);
 
 ```
 
-### データ構造
+### Data structures
 
 ```
 let arr = [1,4,6] # array
@@ -129,7 +129,7 @@ type AddressBook = {name: Str, age: Int, address: Str}
 let record = {name: "Tom", age: 26, address: "Tokyo, Japan"} // record
 ```
 
-コンパイル後
+Generated C++ code
 
 ```c++
 const Array<int> arr = {1,4,6};
@@ -156,7 +156,7 @@ const AddressBook record = new AddressBook("Tom", 26, "Tokyo, Japan");
 
 ```
 
-### 文字列操作
+### Manipulate Strings
 
 ```
 let s = "world"
@@ -168,7 +168,7 @@ You can write multiline document.
 EOF
 ```
 
-コンパイル後
+Generated C++ code
 
 
 ```c++
@@ -178,7 +178,7 @@ const string result = "result: " + sqrt(4);
 const heredoc = "This is heredoc.\nYou can write multiline document.\n";
 ```
 
-### クラス
+### Classes
 
 ```
 # modern style
@@ -210,7 +210,7 @@ puts animal.name # Pochi
 animal.print # type: Dog, name: Pochi
 ```
 
-### ループ
+### Loops
 
 ```
 # old style
@@ -236,7 +236,7 @@ arr.each(puts _) # best
 arr.size.times(n => puts n) # another code
 ```
 
-### 高階関数
+### High level functions
 
 ```
 def apply(list, fn){
@@ -258,7 +258,7 @@ let sums = [1..n].inject(:+) in [1..3].map(_ * 10) # [55, 210, 465]
 "world".hello # compile error
 ```
 
-### インライン展開
+### Inline code generation (macro)
 
 ```
 inline def nil!(any:Any){
