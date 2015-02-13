@@ -13,7 +13,7 @@ OCAMLFIND = "ocamlfind"
 DYPGEN = "dypgen"
 
 LIBS = "dyp"
-SOURCES = "ast.ml parser.ml" 
+SOURCES = "ast.ml parser.ml parse_test.ml" 
 
 OCAMLFIND_FLAGS = "-linkpkg -package #{LIBS}"
 

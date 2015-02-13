@@ -33,10 +33,10 @@ require_def:
   | "require" str { Ast.REQUIRE($2) }
 
 let_def:
-  | "let" comma_multi_ident_assign { Ast.LET($2) }
+  | "let" comma_multi_ident_assign { Ast.PAREN($2) }
 
 var_def:
-  | "var" comma_multi_ident_declare_assign { Ast.LET($2) }
+  | "var" comma_multi_ident_declare_assign { Ast.PAREN($2) }
 
 int_def:
   | INT { Ast.INT($1) }
@@ -69,14 +69,14 @@ args:
   | ident { [$1] }
 
 comma_multi_ident_assign:
-  | comma_multi_ident_assign "," ident "=" expr { let v = [($3,$5)] in List.append $1 v }
-  | ident "=" expr { [($1,$3)] }
+  | comma_multi_ident_assign "," ident "=" expr { List.append $1 [Ast.LET($3,$5)] }
+  | ident "=" expr { [Ast.LET($1,$3)] }
 
 comma_multi_ident_declare_assign:
-  | comma_multi_ident_declare_assign "," ident "=" expr { let v = [($3,$5)] in List.append $1 v }
-  | comma_multi_ident_declare_assign "," ident { let v = [($3, Ast.UNDEFINED)] in List.append $1 v }
-  | ident "=" expr { [($1,$3)] }
-  | ident { [($1,Ast.UNDEFINED)] }
+  | comma_multi_ident_declare_assign "," ident "=" expr { List.append $1 [Ast.VAR($3,$5)] }
+  | comma_multi_ident_declare_assign "," ident { List.append $1 [Ast.VAR($3,Ast.UNDEFINED)] }
+  | ident "=" expr { [Ast.VAR($1,$3)] }
+  | ident { [Ast.VAR($1,Ast.UNDEFINED)] }
 
 str:
   | DBL_QUOTE double_str_contents DBL_QUOTE { $2 }
