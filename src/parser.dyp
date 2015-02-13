@@ -71,6 +71,9 @@ string_def:
 function_def:
   | "def" ident "(" args ")" "{" expr_list "}" { Ast.FUNCTION($2, $4, $7) }
 
+return_def:
+  | "return" expr { Ast.RETURN($2) }
+
 expr_list:
   | expr_list expr { List.append $1 [$2] }
   | expr { [$1] }

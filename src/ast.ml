@@ -9,6 +9,7 @@
 #     | INT of int
 #     | FLOAT of float
 #     | FUNCTION of string * string list * ast list
+#     | RETURN of ast
 #   type declareMap = {name: string; expr: ast}
 # end;;
 
