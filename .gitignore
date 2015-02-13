@@ -2,4 +2,6 @@
 *.cmi
 *.cmx
 *.o
+*.extract_type
+parser_temp.ml
 dist/*

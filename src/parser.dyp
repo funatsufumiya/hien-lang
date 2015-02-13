@@ -28,8 +28,7 @@ main lexer =
 main
   : expr { $1 }
 
-expr
-  : (* nothing *)
+expr:
   | require_def { $1 }
   | var_def { $1 }
   | let_def { $1 }

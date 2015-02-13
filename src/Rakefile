@@ -26,7 +26,7 @@ task :clean => [:clean_all]
 
 desc "Clean All"
 task :clean_all do
-  sh "rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o #{DIST}/*"
+  sh "rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o #{DIST}/* #{SRC}/*.extract_type #{SRC}/parser_temp.ml"
 end
 
 desc "Generate Parser with dypgen"
