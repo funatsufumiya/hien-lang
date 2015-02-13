@@ -4,4 +4,5 @@
 *.o
 *.extract_type
 parser_temp.ml
+parser.ml
 dist/*
