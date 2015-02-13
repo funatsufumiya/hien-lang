@@ -5,7 +5,7 @@
 main lexer =
 [' ' '\t' '\n'] ->
 (['1'-'9']?['0'-'9']+) -> INT { int_of_string (Dyp.lexeme lexbuf) }
-(['1'-'9']?['0'-'9']*('.'['0'-'9']+)?) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
+(['1'-'9']?['0'-'9']+['.']['0'-'9']+)|(['.']['0'-'9']+) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
 ([^'"']|['\\']['"']) -> DBL_STRCH { Dyp.lexeme lexbuf }
 ([^''']|['\\'][''']) -> SGL_STRCH { Dyp.lexeme lexbuf } 
 (['a'-'z']|['A'-'Z']|'_')(['0'-'9']|['a'-'z']|['A'-'Z']|'_')* -> IDENT_CHARS { Dyp.lexeme lexbuf }
@@ -75,7 +75,6 @@ comma_multi_ident_declare_assign:
   | comma_multi_ident_declare_assign "," ident "=" expr { List.append $1 [Ast.VAR($3,$5)] }
   | comma_multi_ident_declare_assign "," ident { List.append $1 [Ast.VAR($3,Ast.UNDEFINED)] }
   | ident "=" expr { [Ast.VAR($1,$3)] }
-  | ident { [Ast.VAR($1,Ast.UNDEFINED)] }
 
 str:
   | DBL_QUOTE double_str_contents DBL_QUOTE { $2 }

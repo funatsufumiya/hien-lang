@@ -4,5 +4,10 @@ let parse s =
   Ast.print_parse_result lst
 ;;
 
-parse "let a = 3";;
-parse "var this_is_test = 3.45";;
+let _ = 
+  parse "let an_int = 3";
+  parse "let intVal = 463";
+  parse "let this_is_test = 3.45";
+  parse "var this_is_test = 3.45";
+  parse "var s = \"the string %$^&\""
+;;

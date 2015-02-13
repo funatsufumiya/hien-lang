@@ -17,7 +17,7 @@ let print_parse_result lst =
   let rec print_ast e =
     match e with
       UNDEFINED -> print_string "UNDEFINED "
-    | REQUIRE(lib) -> printf "REQUIRE('%s') " lib
+    | REQUIRE(lib) -> printf "REQUIRE(\"%s\") " lib
     | LET(name,e) ->
       printf "LET(%s, " name;
       print_ast e;
@@ -26,11 +26,11 @@ let print_parse_result lst =
       printf "VAR(%s, " name;
       print_ast e;
       print_string ") "
-    | STRING(s) -> printf "STRING('%s') " s
+    | STRING(s) -> printf "STRING(\"%s\") " s
     | INT(i) -> printf "INT(%d) " i
     | FLOAT(f) -> printf "FLOAT(%f) " f
     | FUNCTION(funcname, args, exprs) -> 
-      printf "FUNCTION('%s'," funcname;
+      printf "FUNCTION(\"%s\"," funcname;
       List.iter (fun name -> print_string (name ^ "; ")) args;
       print_string ", ";
       List.iter (fun e -> print_ast e; print_string "; ") exprs;
