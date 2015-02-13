@@ -1,0 +1,40 @@
+# Directories =======
+
+SRC = "."
+DIST = "../dist"
+
+# Compilers =======
+
+CC = "gcc"
+CFLAGS = "-Wall"
+
+OCAMLOPT = "ocamlopt"
+OCAMLC = "ocamlc"
+OCAMLFIND = "ocamlfind"
+DYPGEN = "dypgen"
+
+# Files =======
+
+PARSER_DYP = "#{SRC}/parser.dyp"
+
+# Tasks =====================================
+
+desc "Compile All"
+task :all => [:generate_parser, :compile_all]
+
+task :clean => [:clean_all]
+
+desc "Clean All"
+task :clean_all do
+  sh "rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o #{DIST}/*"
+end
+
+desc "Generate Parser with dypgen"
+task :generate_parser do
+  sh "#{DYPGEN} #{PARSER_DYP}"
+end
+
+desc "Compile All"
+task :compile_all do
+  # TODO: implement
+end

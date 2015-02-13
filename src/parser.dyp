@@ -1,0 +1,47 @@
+%start main
+
+%lexer
+
+main lexer =
+[' ' '\t'] ->
+['1'-'9']?['0'-'9']+ -> INT { int_of_string (Dyp.lexeme lexbuf) }
+(['1'-'9']?['0'-'9']*('.'['0'-'9']+)?) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
+"+" -> PLUS
+"-" -> MINUS
+"*" -> TIMES
+"/" -> DIV
+"=" -> EQUAL
+":" -> COLON
+"(" -> LPAREN
+")" -> RPAREN
+"<" -> LT
+">" -> GT
+"{" -> LBLOCK
+"}" -> RBLOCK
+"def" -> DEF
+"let" -> LET
+"var" -> VAR
+
+
+%parser
+
+main
+  : expr { $1 }
+
+expr
+  : (* nothing *)
+  | require_def { $1 }
+  | var_def { $1 }
+  | let_def { $1 }
+  | function_def { $1 }
+  | anon_func_def { $1 }
+  | class_def { $1 }
+  | record_def { $1 }
+  | macro_def { $1 }
+  | while_def { $1 }
+  | if_def { $1 }
+  | match_def { $1 }
+  | method_call_def { $1 }
+  | array_def { $1 }
+  | tuple_def { $1 }
+  | statement_def { $1 }
