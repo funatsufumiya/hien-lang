@@ -1,3 +1,7 @@
-# hien-lang
+# Hien language
 
-**Status:** see ideas.md
+**Status:** Implementing (Almost ideas)
+
+## Ideas
+
+see docs/ideas.md
