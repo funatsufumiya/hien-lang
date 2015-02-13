@@ -6,10 +6,10 @@ main lexer =
 [' ' '\t' '\n'] ->
 (['1'-'9']?['0'-'9']+) -> INT { int_of_string (Dyp.lexeme lexbuf) }
 (['1'-'9']?['0'-'9']*('.'['0'-'9']+)?) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
-([^'"']|['\\']['"']) -> DBL_STRCH { Dyp.lexme lexbuf }
-([^''']|['\\'][''']) -> SGL_STRCH { Dyp.lexme lexbuf } 
-(['a'-'z']|['A'-'Z']|'_') -> HD_ID_CH
-(['0'-'9']|['a'-'z']|['A'-'Z']|'_') -> TL_ID_CH { Dyp.lexme lexbuf } 
+([^'"']|['\\']['"']) -> DBL_STRCH { Dyp.lexeme lexbuf }
+([^''']|['\\'][''']) -> SGL_STRCH { Dyp.lexeme lexbuf } 
+(['a'-'z']|['A'-'Z']|'_') -> HD_ID_CH { Dyp.lexeme lexbuf } 
+(['0'-'9']|['a'-'z']|['A'-'Z']|'_') -> TL_ID_CH { Dyp.lexeme lexbuf } 
 "\"" -> DBL_QUOTE
 "'" -> SGL_QUOTE
 
