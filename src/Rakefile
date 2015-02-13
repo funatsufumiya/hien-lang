@@ -13,6 +13,10 @@ OCAMLC = "ocamlc"
 OCAMLFIND = "ocamlfind"
 DYPGEN = "dypgen"
 
+# Flags =======
+
+DYPGEN_FLAGS = "--no-mli"
+
 # Files =======
 
 PARSER_DYP = "#{SRC}/parser.dyp"
@@ -26,12 +30,15 @@ task :clean => [:clean_all]
 
 desc "Clean All"
 task :clean_all do
-  sh "rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o #{DIST}/* #{SRC}/*.extract_type #{SRC}/parser_temp.ml"
+  s =
+  ["rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o",
+   "#{DIST}/* #{SRC}/*.extract_type #{SRC}/parser_temp.ml #{SRC}/parser.ml #{SRC}/lexer.mli"]
+  sh "#{s.join(' ')}"
 end
 
 desc "Generate Parser with dypgen"
 task :generate_parser do
-  sh "#{DYPGEN} #{PARSER_DYP}"
+  sh "#{DYPGEN} #{DYPGEN_FLAGS} #{PARSER_DYP}"
 end
 
 desc "Compile All"
