@@ -3,21 +3,22 @@
 %lexer
 
 main lexer =
-[' ' '\t'] ->
+[' ' '\t' '\n'] ->
 ['1'-'9']?['0'-'9']+ -> INT { int_of_string (Dyp.lexeme lexbuf) }
 (['1'-'9']?['0'-'9']*('.'['0'-'9']+)?) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
-"\"" -> DQUOTE
-"'" -> SQUOTE
-([^'"']|['\\']['"']) -> DSTRCH { Dyp.lexme lexbuf }
-([^''']|['\\'][''']) -> SSTRCH { Dyp.lexme lexbuf } 
+([^'"']|['\\']['"']) -> DBL_STRCH { Dyp.lexme lexbuf }
+([^''']|['\\'][''']) -> SGL_STRCH { Dyp.lexme lexbuf } 
+['a'-'z']|['A'-'Z']|'_' -> HD_ID_CH
+(['0'-'9']|['a'-'z']|['A'-'Z']|'_') -> TL_ID_CH { Dyp.lexme lexbuf } 
+"\"" -> DBL_QUOTE
+"'" -> SGL_QUOTE
 "+" -> PLUS
 "-" -> MINUS
 "*" -> TIMES
 "/" -> DIV
-"=" -> EQUAL
+"#" -> SHARP
 ":" -> COLON
-"(" -> LPAREN
-")" -> RPAREN
+";" -> SEMICOLON
 "<" -> LT
 ">" -> GT
 "{" -> LBLOCK
@@ -30,9 +31,13 @@ main
 
 expr:
   | require_def { $1 }
-  | var_def { $1 }
   | let_def { $1 }
+  | var_def { $1 }
+  | int_def { $1 }
+  | float_def { $1 }
+  | string_def { $1 }
   | function_def { $1 }
+  | return_def { $1 }
   | anon_func_def { $1 }
   | class_def { $1 }
   | record_def { $1 }
@@ -48,14 +53,58 @@ expr:
 require_def:
   | "require" str { Ast.REQUIRE($2) }
 
+let_def:
+  | "let" comma_multi_ident_assign { Ast.LET($2) }
+
+var_def:
+  | "var" comma_multi_ident_declare_assign { Ast.LET($2) }
+
+int_def:
+  | INT { Ast.INT($1) }
+
+float_def:
+  | FLOAT { Ast.FLOAT($1) }
+
+string_def:
+  | str { $1 }
+
+function_def:
+  | "def" ident "(" args ")" "{" expr_list "}" { Ast.FUNCTION($2, $4, $7) }
+
+expr_list:
+  | expr_list expr { List.append $1 [$2] }
+  | expr { [$1] }
+
+args:
+  | args ident { List.append $1 [$2] }
+  | ident { [$1] }
+
+comma_multi_ident_assign:
+  | comma_multi_ident_assign "," ident "=" expr { let v = [{name: $3; expr: $5}] in List.append $1 v }
+  | ident "=" expr { [{name: $1; expr: $2}] }
+
+comma_multi_ident_declare_assign:
+  | comma_multi_ident_declare_assign "," ident "=" expr { let v = [{name: $3; expr: $5}] in List.append $1 v }
+  | comma_multi_ident_declare_assign "," ident { let v = [{name: $3; expr: Ast.UNDEFINED}] in List.append $1 v }
+  | ident "=" expr { [{name: $1; expr: $2}] }
+  | ident { [{name: $1; expr: Ast.UNDEFINED}] }
+
 str:
-  | DQUOTE dstr_contents DQUOTE
-  | SQUOTE sstr_contents SQUOTE
+  | DBL_QUOTE double_str_contents DBL_QUOTE { $2 }
+  | SGL_QUOTE single_str_contents SGL_QUOTE { $2 }
 
-dstr_contents:
-  | dstr_contents DSTRCH
-  | DSTRCH
+ident:
+  | HD_ID_CH tail_ident { $1 ^ $2 }
+  | HD_ID_CH { $1 }
 
-sstr_contents:
-  | sstr_contents SSTRCH
-  | SSTRCH
+tail_ident:
+  | tail_ident TL_ID_CH { $1 ^ $2 }
+  | TL_ID_CH { $1 }
+
+double_str_contents:
+  | double_str_contents DBL_STRCH { $1 ^ $2 }
+  | DBL_STRCH { $1 }
+
+single_str_contents:
+  | single_str_contents SGL_STRCH { $1 ^ $2 }
+  | SGL_STRCH { $1 }
