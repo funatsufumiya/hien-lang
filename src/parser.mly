@@ -17,7 +17,7 @@ expr
   | if_def { $1 }
   | match_def { $1 }
   | method_call_def { $1 }
-  | bin_op_def { $1 }
   | array_def { $1 }
   | tuple_def { $1 }
+  | statement_def { $1 }
   ;

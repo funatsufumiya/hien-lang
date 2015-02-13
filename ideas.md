@@ -1,4 +1,4 @@
-hien-lang 言語設計
+The hien-lang Language Specs
 
 ### let, var, and type inference
 
@@ -10,7 +10,7 @@ a = 5 # compile error
 b = 5 # ok
 ```
 
-コンパイル後
+Compiled
 
 ```c++
 #line 1 "var.hi"
@@ -25,7 +25,7 @@ b = 5;
 
 ```
 
-### 関数
+### Functions
 
 ```
 def sum(from: Int, to: Int){
@@ -44,11 +44,11 @@ def fib(n){
   }
 }
 
-def hello(n: Int) => puts n
-let hello = (n:Int => puts n) 
+def hello(n: Int) => puts n # short hand
+let hello = (n:Int => puts n) # anonymous function
 ```
 
-コンパイル後
+Compiled
 
 ```c++
 int sum(int from, int to){
@@ -74,7 +74,7 @@ int fib(int n){
 }
 ```
 
-### 並列化
+### Parallelism
 
 ```
 let list = [1,3,5,7]
@@ -82,7 +82,7 @@ list.paraMap(n => n*n)
 list.paraEach(n => puts n)
 ```
 
-コンパイル後
+Compiled
 
 ```c++
 const Array<int> list = {1,3,5,7};
@@ -100,7 +100,7 @@ pararellEach(list, __anon2);
 
 ```
 
-### データ構造
+### Data Structures
 
 ```
 let arr = [1,4,6] # array
@@ -114,7 +114,7 @@ type AddressBook = {name: Str, age: Int, address: Str}
 let record = {name: "Tom", age: 26, address: "Tokyo, Japan"} // record
 ```
 
-コンパイル後
+Compiled
 
 ```c++
 const Array<int> arr = {1,4,6};
@@ -141,7 +141,7 @@ const AddressBook record = new AddressBook("Tom", 26, "Tokyo, Japan");
 
 ```
 
-### 文字列操作
+### String Manipulation
 
 ```
 let s = "world"
@@ -153,7 +153,7 @@ You can write multiline document.
 EOF
 ```
 
-コンパイル後
+Compiled
 
 
 ```c++
@@ -163,7 +163,7 @@ const string result = "result: " + sqrt(4);
 const heredoc = "This is heredoc.\nYou can write multiline document.\n";
 ```
 
-### クラス
+### Classes
 
 ```
 # modern style
@@ -195,7 +195,7 @@ puts animal.name # Pochi
 animal.print # type: Dog, name: Pochi
 ```
 
-### ループ
+### Loops
 
 ```
 # old style
@@ -219,4 +219,16 @@ for(let n : arr)[
 arr.each(puts _) # best
 
 arr.size.times(n => puts n) # another code
+```
+
+### Macros
+
+```
+macro def nil!(e:Var<Any>){
+  `%e = nil`
+}
+
+macro def incl(e:Var<Number>){
+  `++%e`
+}
 ```
