@@ -8,8 +8,7 @@ main lexer =
 (['1'-'9']?['0'-'9']*('.'['0'-'9']+)?) -> FLOAT { float_of_string (Dyp.lexeme lexbuf) }
 ([^'"']|['\\']['"']) -> DBL_STRCH { Dyp.lexeme lexbuf }
 ([^''']|['\\'][''']) -> SGL_STRCH { Dyp.lexeme lexbuf } 
-(['a'-'z']|['A'-'Z']|'_') -> HD_ID_CH { Dyp.lexeme lexbuf } 
-(['0'-'9']|['a'-'z']|['A'-'Z']|'_') -> TL_ID_CH { Dyp.lexeme lexbuf } 
+(['a'-'z']|['A'-'Z']|'_')(['0'-'9']|['a'-'z']|['A'-'Z']|'_')* -> IDENT_CHARS { Dyp.lexeme lexbuf }
 "\"" -> DBL_QUOTE
 "'" -> SGL_QUOTE
 
@@ -83,12 +82,7 @@ str:
   | SGL_QUOTE single_str_contents SGL_QUOTE { $2 }
 
 ident:
-  | HD_ID_CH tail_ident { $1 ^ $2 }
-  | HD_ID_CH { $1 }
-
-tail_ident:
-  | tail_ident TL_ID_CH { $1 ^ $2 }
-  | TL_ID_CH { $1 }
+  | IDENT_CHARS { $1 }
 
 double_str_contents:
   | double_str_contents DBL_STRCH { $1 ^ $2 }
