@@ -1,0 +1,9 @@
+licenses:
+
+  - name: dypgen
+    url: "http://dypgen.free.fr/"
+    license: CeCILL-B v1
+    author: Emmanuel Onzon
+    year: 2005?
+    license-source: "https://github.com/ocaml/opam-repository/blo/master/packages/dypgen/dypgen.20120619-1/opam"
+    note: "CeCILL-B is fully compatible with BSD-like licenses (BSD, X11, MIT)"
