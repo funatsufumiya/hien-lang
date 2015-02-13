@@ -10,6 +10,7 @@
 #     | FLOAT of float
 #     | FUNCTION of string * string list * ast list
 #     | RETURN of ast
+#     | PAREN of ast list
 #   type declareMap = {name: string; expr: ast}
 # end;;
 

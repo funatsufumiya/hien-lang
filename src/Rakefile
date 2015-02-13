@@ -15,7 +15,7 @@ DYPGEN = "dypgen"
 
 # Flags =======
 
-DYPGEN_FLAGS = ""
+DYPGEN_FLAGS = "--no-mli"
 
 # Files =======
 
