@@ -1,6 +1,5 @@
 # Directories =======
 
-SRC = "."
 DIST = "../dist"
 
 # Compilers =======
@@ -13,35 +12,40 @@ OCAMLC = "ocamlc"
 OCAMLFIND = "ocamlfind"
 DYPGEN = "dypgen"
 
-# Flags =======
+LIBS = "dyp"
+SOURCES = "ast.ml parser.ml" 
 
-DYPGEN_FLAGS = "--no-mli"
+OCAMLFIND_FLAGS = "-linkpkg -package #{LIBS}"
 
 # Files =======
 
-PARSER_DYP = "#{SRC}/parser.dyp"
-
 # Tasks =====================================
 
-desc "Compile All"
-task :all => [:generate_parser, :compile_all]
+desc "default"
+task :default do
+  compileAll
+end
 
-task :clean => [:clean_all]
+task :clean do 
+  cleanAll
+end
 
-desc "Clean All"
-task :clean_all do
+def compileAll
+  generateParser
+  batchCompile(SOURCES)
+end
+
+def cleanAll
   s =
-  ["rm -rf #{SRC}/*.mxo #{SRC}/*.mxi #{SRC}/*.o",
-   "#{DIST}/* #{SRC}/*.extract_type #{SRC}/parser_temp.ml #{SRC}/parser.ml #{SRC}/lexer.mli"]
+  ["rm -rf *.cmi *.cmx *.o",
+   "#{DIST}/* *.extract_type parser_temp.ml parser.ml lexer.mli"]
   sh "#{s.join(' ')}"
 end
 
-desc "Generate Parser with dypgen"
-task :generate_parser do
-  sh "#{DYPGEN} #{DYPGEN_FLAGS} #{PARSER_DYP}"
+def batchCompile(sources)
+  sh "#{OCAMLFIND} #{OCAMLOPT} -o hien #{OCAMLFIND_FLAGS} #{sources}"
 end
 
-desc "Compile All"
-task :compile_all do
-  # TODO: implement
+def generateParser
+  sh "#{DYPGEN} --no-mli parser.dyp"
 end
