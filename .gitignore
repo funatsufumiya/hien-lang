@@ -6,4 +6,5 @@
 parser_temp.ml
 parser.ml
 lexer.mli
+lexer.ml
 dist/*
