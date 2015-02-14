@@ -1,0 +1,68 @@
+
+** Conflict (shift/reduce) in state 26.
+** Token involved: COMMA
+** This state is reached from main after reading:
+
+VAR ident EQUAL LET let_assign_list 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+main 
+expr 
+var_def 
+VAR var_assign_list 
+    (?)
+
+** In state 26, looking ahead at COMMA, shifting is permitted
+** because of the following sub-derivation:
+
+var_assign 
+ident EQUAL expr 
+            let_def 
+            LET let_assign_list 
+                let_assign_list . COMMA let_assign 
+
+** In state 26, looking ahead at COMMA, reducing production
+** let_def -> LET let_assign_list 
+** is permitted because of the following sub-derivation:
+
+var_assign_list COMMA var_assign // lookahead token appears
+var_assign // lookahead token is inherited
+ident EQUAL expr // lookahead token is inherited
+            let_def // lookahead token is inherited
+            LET let_assign_list . 
+
+** Conflict (shift/reduce) in state 9.
+** Token involved: COMMA
+** This state is reached from main after reading:
+
+VAR ident EQUAL VAR var_assign_list 
+
+** The derivations that appear below have the following common factor:
+** (The question mark symbol (?) represents the spot where the derivations begin to differ.)
+
+main 
+expr 
+var_def 
+VAR var_assign_list 
+    (?)
+
+** In state 9, looking ahead at COMMA, shifting is permitted
+** because of the following sub-derivation:
+
+var_assign 
+ident EQUAL expr 
+            var_def 
+            VAR var_assign_list 
+                var_assign_list . COMMA var_assign 
+
+** In state 9, looking ahead at COMMA, reducing production
+** var_def -> VAR var_assign_list 
+** is permitted because of the following sub-derivation:
+
+var_assign_list COMMA var_assign // lookahead token appears
+var_assign // lookahead token is inherited
+ident EQUAL expr // lookahead token is inherited
+            var_def // lookahead token is inherited
+            VAR var_assign_list . 

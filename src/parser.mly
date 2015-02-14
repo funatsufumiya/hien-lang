@@ -1,9 +1,10 @@
 %token <int> INT
 %token <float> FLOAT
-%token <string> DBL_STRCH
-%token <string> SGL_STRCH
+%token <string> DBL_STR
+%token <string> SGL_STR
 %token <string> IDENT_CHARS
-%token DBL_QUOTE SGL_QUOTE
+%token <string> DBL_STR_LITERAL
+%token <string> SGL_STR_LITERAL
 %token L_PAREN R_PAREN
 %token LA_PAREN RA_PAREN
 %token LB_PAREN RB_PAREN
@@ -108,21 +109,11 @@ var_assign
   ;
 
 str
-  : DBL_QUOTE double_str_contents DBL_QUOTE { $2 }
-  | SGL_QUOTE single_str_contents SGL_QUOTE { $2 }
+  : DBL_STR_LITERAL { $1 }
+  | SGL_STR_LITERAL { $1 }
   ;
 
 ident
   : IDENT_CHARS { $1 }
-  ;
-
-double_str_contents
-  : double_str_contents DBL_STRCH { $1 ^ $2 }
-  | DBL_STRCH { $1 }
-  ;
-
-single_str_contents
-  : single_str_contents SGL_STRCH { $1 ^ $2 }
-  | SGL_STRCH { $1 }
   ;
 

@@ -1,0 +1,1190 @@
+State 0:
+main' -> . main [ # ]
+-- On VAR shift to state 1
+-- On SGL_QUOTE shift to state 64
+-- On RETURN shift to state 66
+-- On REQUIRE shift to state 67
+-- On L_PAREN shift to state 71
+-- On LET shift to state 73
+-- On INT shift to state 75
+-- On FLOAT shift to state 76
+-- On DEF shift to state 77
+-- On DBL_QUOTE shift to state 68
+-- On var_def shift to state 79
+-- On string_def shift to state 80
+-- On str shift to state 81
+-- On return_def shift to state 82
+-- On require_def shift to state 83
+-- On paren_def shift to state 84
+-- On main shift to state 90
+-- On let_def shift to state 85
+-- On int_def shift to state 86
+-- On function_def shift to state 87
+-- On float_def shift to state 88
+-- On expr shift to state 91
+
+State 1:
+var_def -> VAR . var_assign_list [ # ]
+-- On IDENT_CHARS shift to state 2
+-- On var_assign_list shift to state 3
+-- On var_assign shift to state 10
+-- On ident shift to state 6
+
+State 2:
+ident -> IDENT_CHARS . [ R_PAREN L_PAREN IDENT_CHARS EQUAL ]
+-- On R_PAREN reduce production ident -> IDENT_CHARS 
+-- On L_PAREN reduce production ident -> IDENT_CHARS 
+-- On IDENT_CHARS reduce production ident -> IDENT_CHARS 
+-- On EQUAL reduce production ident -> IDENT_CHARS 
+
+State 3:
+var_assign_list -> var_assign_list . COMMA var_assign [ COMMA # ]
+var_def -> VAR var_assign_list . [ # ]
+-- On COMMA shift to state 4
+-- On # reduce production var_def -> VAR var_assign_list 
+
+State 4:
+var_assign_list -> var_assign_list COMMA . var_assign [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On var_assign shift to state 5
+-- On ident shift to state 6
+
+State 5:
+var_assign_list -> var_assign_list COMMA var_assign . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On SGL_QUOTE reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On SEMICOLON reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On R_PAREN reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On RETURN reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On REQUIRE reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On RB_PAREN reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On L_PAREN reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On LET reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On INT reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On FLOAT reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On DEF reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On DBL_QUOTE reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On COMMA reduce production var_assign_list -> var_assign_list COMMA var_assign 
+-- On # reduce production var_assign_list -> var_assign_list COMMA var_assign 
+
+State 6:
+var_assign -> ident . EQUAL expr [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On EQUAL shift to state 7
+
+State 7:
+var_assign -> ident EQUAL . expr [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr shift to state 63
+
+State 8:
+var_def -> VAR . var_assign_list [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On var_assign_list shift to state 9
+-- On var_assign shift to state 10
+-- On ident shift to state 6
+
+State 9:
+var_assign_list -> var_assign_list . COMMA var_assign [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+var_def -> VAR var_assign_list . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On COMMA shift to state 4
+-- On VAR reduce production var_def -> VAR var_assign_list 
+-- On SGL_QUOTE reduce production var_def -> VAR var_assign_list 
+-- On SEMICOLON reduce production var_def -> VAR var_assign_list 
+-- On R_PAREN reduce production var_def -> VAR var_assign_list 
+-- On RETURN reduce production var_def -> VAR var_assign_list 
+-- On REQUIRE reduce production var_def -> VAR var_assign_list 
+-- On RB_PAREN reduce production var_def -> VAR var_assign_list 
+-- On L_PAREN reduce production var_def -> VAR var_assign_list 
+-- On LET reduce production var_def -> VAR var_assign_list 
+-- On INT reduce production var_def -> VAR var_assign_list 
+-- On FLOAT reduce production var_def -> VAR var_assign_list 
+-- On DEF reduce production var_def -> VAR var_assign_list 
+-- On DBL_QUOTE reduce production var_def -> VAR var_assign_list 
+-- On COMMA reduce production var_def -> VAR var_assign_list 
+-- On # reduce production var_def -> VAR var_assign_list 
+** Conflict on COMMA
+
+State 10:
+var_assign_list -> var_assign . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production var_assign_list -> var_assign 
+-- On SGL_QUOTE reduce production var_assign_list -> var_assign 
+-- On SEMICOLON reduce production var_assign_list -> var_assign 
+-- On R_PAREN reduce production var_assign_list -> var_assign 
+-- On RETURN reduce production var_assign_list -> var_assign 
+-- On REQUIRE reduce production var_assign_list -> var_assign 
+-- On RB_PAREN reduce production var_assign_list -> var_assign 
+-- On L_PAREN reduce production var_assign_list -> var_assign 
+-- On LET reduce production var_assign_list -> var_assign 
+-- On INT reduce production var_assign_list -> var_assign 
+-- On FLOAT reduce production var_assign_list -> var_assign 
+-- On DEF reduce production var_assign_list -> var_assign 
+-- On DBL_QUOTE reduce production var_assign_list -> var_assign 
+-- On COMMA reduce production var_assign_list -> var_assign 
+-- On # reduce production var_assign_list -> var_assign 
+
+State 11:
+str -> SGL_QUOTE . single_str_contents SGL_QUOTE [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On SGL_STRCH shift to state 12
+-- On single_str_contents shift to state 13
+
+State 12:
+single_str_contents -> SGL_STRCH . [ SGL_STRCH SGL_QUOTE ]
+-- On SGL_STRCH reduce production single_str_contents -> SGL_STRCH 
+-- On SGL_QUOTE reduce production single_str_contents -> SGL_STRCH 
+
+State 13:
+single_str_contents -> single_str_contents . SGL_STRCH [ SGL_STRCH SGL_QUOTE ]
+str -> SGL_QUOTE single_str_contents . SGL_QUOTE [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On SGL_STRCH shift to state 14
+-- On SGL_QUOTE shift to state 15
+
+State 14:
+single_str_contents -> single_str_contents SGL_STRCH . [ SGL_STRCH SGL_QUOTE ]
+-- On SGL_STRCH reduce production single_str_contents -> single_str_contents SGL_STRCH 
+-- On SGL_QUOTE reduce production single_str_contents -> single_str_contents SGL_STRCH 
+
+State 15:
+str -> SGL_QUOTE single_str_contents SGL_QUOTE . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On SGL_QUOTE reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On SEMICOLON reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On R_PAREN reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On RETURN reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On REQUIRE reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On RB_PAREN reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On L_PAREN reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On LET reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On INT reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On FLOAT reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On DEF reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On DBL_QUOTE reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On COMMA reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+-- On # reduce production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+
+State 16:
+return_def -> RETURN . expr [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr shift to state 62
+
+State 17:
+require_def -> REQUIRE . str [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On SGL_QUOTE shift to state 11
+-- On DBL_QUOTE shift to state 18
+-- On str shift to state 23
+
+State 18:
+str -> DBL_QUOTE . double_str_contents DBL_QUOTE [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On DBL_STRCH shift to state 19
+-- On double_str_contents shift to state 20
+
+State 19:
+double_str_contents -> DBL_STRCH . [ DBL_STRCH DBL_QUOTE ]
+-- On DBL_STRCH reduce production double_str_contents -> DBL_STRCH 
+-- On DBL_QUOTE reduce production double_str_contents -> DBL_STRCH 
+
+State 20:
+double_str_contents -> double_str_contents . DBL_STRCH [ DBL_STRCH DBL_QUOTE ]
+str -> DBL_QUOTE double_str_contents . DBL_QUOTE [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On DBL_STRCH shift to state 21
+-- On DBL_QUOTE shift to state 22
+
+State 21:
+double_str_contents -> double_str_contents DBL_STRCH . [ DBL_STRCH DBL_QUOTE ]
+-- On DBL_STRCH reduce production double_str_contents -> double_str_contents DBL_STRCH 
+-- On DBL_QUOTE reduce production double_str_contents -> double_str_contents DBL_STRCH 
+
+State 22:
+str -> DBL_QUOTE double_str_contents DBL_QUOTE . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On SGL_QUOTE reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On SEMICOLON reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On R_PAREN reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On RETURN reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On REQUIRE reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On RB_PAREN reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On L_PAREN reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On LET reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On INT reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On FLOAT reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On DEF reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On DBL_QUOTE reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On COMMA reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+-- On # reduce production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+
+State 23:
+require_def -> REQUIRE str . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production require_def -> REQUIRE str 
+-- On SGL_QUOTE reduce production require_def -> REQUIRE str 
+-- On SEMICOLON reduce production require_def -> REQUIRE str 
+-- On R_PAREN reduce production require_def -> REQUIRE str 
+-- On RETURN reduce production require_def -> REQUIRE str 
+-- On REQUIRE reduce production require_def -> REQUIRE str 
+-- On RB_PAREN reduce production require_def -> REQUIRE str 
+-- On L_PAREN reduce production require_def -> REQUIRE str 
+-- On LET reduce production require_def -> REQUIRE str 
+-- On INT reduce production require_def -> REQUIRE str 
+-- On FLOAT reduce production require_def -> REQUIRE str 
+-- On DEF reduce production require_def -> REQUIRE str 
+-- On DBL_QUOTE reduce production require_def -> REQUIRE str 
+-- On COMMA reduce production require_def -> REQUIRE str 
+-- On # reduce production require_def -> REQUIRE str 
+
+State 24:
+paren_def -> L_PAREN . expr_semicolon_list R_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr_semicolon_list shift to state 57
+-- On expr shift to state 61
+
+State 25:
+let_def -> LET . let_assign_list [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On let_assign_list shift to state 26
+-- On let_assign shift to state 56
+-- On ident shift to state 29
+
+State 26:
+let_assign_list -> let_assign_list . COMMA let_assign [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+let_def -> LET let_assign_list . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On COMMA shift to state 27
+-- On VAR reduce production let_def -> LET let_assign_list 
+-- On SGL_QUOTE reduce production let_def -> LET let_assign_list 
+-- On SEMICOLON reduce production let_def -> LET let_assign_list 
+-- On R_PAREN reduce production let_def -> LET let_assign_list 
+-- On RETURN reduce production let_def -> LET let_assign_list 
+-- On REQUIRE reduce production let_def -> LET let_assign_list 
+-- On RB_PAREN reduce production let_def -> LET let_assign_list 
+-- On L_PAREN reduce production let_def -> LET let_assign_list 
+-- On LET reduce production let_def -> LET let_assign_list 
+-- On INT reduce production let_def -> LET let_assign_list 
+-- On FLOAT reduce production let_def -> LET let_assign_list 
+-- On DEF reduce production let_def -> LET let_assign_list 
+-- On DBL_QUOTE reduce production let_def -> LET let_assign_list 
+-- On COMMA reduce production let_def -> LET let_assign_list 
+-- On # reduce production let_def -> LET let_assign_list 
+** Conflict on COMMA
+
+State 27:
+let_assign_list -> let_assign_list COMMA . let_assign [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On let_assign shift to state 28
+-- On ident shift to state 29
+
+State 28:
+let_assign_list -> let_assign_list COMMA let_assign . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On SGL_QUOTE reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On SEMICOLON reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On R_PAREN reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On RETURN reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On REQUIRE reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On RB_PAREN reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On L_PAREN reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On LET reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On INT reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On FLOAT reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On DEF reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On DBL_QUOTE reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On COMMA reduce production let_assign_list -> let_assign_list COMMA let_assign 
+-- On # reduce production let_assign_list -> let_assign_list COMMA let_assign 
+
+State 29:
+let_assign -> ident . EQUAL expr [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On EQUAL shift to state 30
+
+State 30:
+let_assign -> ident EQUAL . expr [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr shift to state 55
+
+State 31:
+int_def -> INT . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production int_def -> INT 
+-- On SGL_QUOTE reduce production int_def -> INT 
+-- On SEMICOLON reduce production int_def -> INT 
+-- On R_PAREN reduce production int_def -> INT 
+-- On RETURN reduce production int_def -> INT 
+-- On REQUIRE reduce production int_def -> INT 
+-- On RB_PAREN reduce production int_def -> INT 
+-- On L_PAREN reduce production int_def -> INT 
+-- On LET reduce production int_def -> INT 
+-- On INT reduce production int_def -> INT 
+-- On FLOAT reduce production int_def -> INT 
+-- On DEF reduce production int_def -> INT 
+-- On DBL_QUOTE reduce production int_def -> INT 
+-- On COMMA reduce production int_def -> INT 
+-- On # reduce production int_def -> INT 
+
+State 32:
+float_def -> FLOAT . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production float_def -> FLOAT 
+-- On SGL_QUOTE reduce production float_def -> FLOAT 
+-- On SEMICOLON reduce production float_def -> FLOAT 
+-- On R_PAREN reduce production float_def -> FLOAT 
+-- On RETURN reduce production float_def -> FLOAT 
+-- On REQUIRE reduce production float_def -> FLOAT 
+-- On RB_PAREN reduce production float_def -> FLOAT 
+-- On L_PAREN reduce production float_def -> FLOAT 
+-- On LET reduce production float_def -> FLOAT 
+-- On INT reduce production float_def -> FLOAT 
+-- On FLOAT reduce production float_def -> FLOAT 
+-- On DEF reduce production float_def -> FLOAT 
+-- On DBL_QUOTE reduce production float_def -> FLOAT 
+-- On COMMA reduce production float_def -> FLOAT 
+-- On # reduce production float_def -> FLOAT 
+
+State 33:
+function_def -> DEF . ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On ident shift to state 34
+
+State 34:
+function_def -> DEF ident . L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On L_PAREN shift to state 35
+
+State 35:
+function_def -> DEF ident L_PAREN . args R_PAREN LB_PAREN expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On IDENT_CHARS shift to state 2
+-- On ident shift to state 36
+-- On args shift to state 37
+
+State 36:
+args -> ident . [ R_PAREN IDENT_CHARS ]
+-- On R_PAREN reduce production args -> ident 
+-- On IDENT_CHARS reduce production args -> ident 
+
+State 37:
+args -> args . ident [ R_PAREN IDENT_CHARS ]
+function_def -> DEF ident L_PAREN args . R_PAREN LB_PAREN expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On R_PAREN shift to state 38
+-- On IDENT_CHARS shift to state 2
+-- On ident shift to state 54
+
+State 38:
+function_def -> DEF ident L_PAREN args R_PAREN . LB_PAREN expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On LB_PAREN shift to state 39
+
+State 39:
+function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN . expr_list RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr_list shift to state 50
+-- On expr shift to state 53
+
+State 40:
+expr -> var_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> var_def 
+-- On SGL_QUOTE reduce production expr -> var_def 
+-- On SEMICOLON reduce production expr -> var_def 
+-- On R_PAREN reduce production expr -> var_def 
+-- On RETURN reduce production expr -> var_def 
+-- On REQUIRE reduce production expr -> var_def 
+-- On RB_PAREN reduce production expr -> var_def 
+-- On L_PAREN reduce production expr -> var_def 
+-- On LET reduce production expr -> var_def 
+-- On INT reduce production expr -> var_def 
+-- On FLOAT reduce production expr -> var_def 
+-- On DEF reduce production expr -> var_def 
+-- On DBL_QUOTE reduce production expr -> var_def 
+-- On COMMA reduce production expr -> var_def 
+-- On # reduce production expr -> var_def 
+
+State 41:
+expr -> string_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> string_def 
+-- On SGL_QUOTE reduce production expr -> string_def 
+-- On SEMICOLON reduce production expr -> string_def 
+-- On R_PAREN reduce production expr -> string_def 
+-- On RETURN reduce production expr -> string_def 
+-- On REQUIRE reduce production expr -> string_def 
+-- On RB_PAREN reduce production expr -> string_def 
+-- On L_PAREN reduce production expr -> string_def 
+-- On LET reduce production expr -> string_def 
+-- On INT reduce production expr -> string_def 
+-- On FLOAT reduce production expr -> string_def 
+-- On DEF reduce production expr -> string_def 
+-- On DBL_QUOTE reduce production expr -> string_def 
+-- On COMMA reduce production expr -> string_def 
+-- On # reduce production expr -> string_def 
+
+State 42:
+string_def -> str . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production string_def -> str 
+-- On SGL_QUOTE reduce production string_def -> str 
+-- On SEMICOLON reduce production string_def -> str 
+-- On R_PAREN reduce production string_def -> str 
+-- On RETURN reduce production string_def -> str 
+-- On REQUIRE reduce production string_def -> str 
+-- On RB_PAREN reduce production string_def -> str 
+-- On L_PAREN reduce production string_def -> str 
+-- On LET reduce production string_def -> str 
+-- On INT reduce production string_def -> str 
+-- On FLOAT reduce production string_def -> str 
+-- On DEF reduce production string_def -> str 
+-- On DBL_QUOTE reduce production string_def -> str 
+-- On COMMA reduce production string_def -> str 
+-- On # reduce production string_def -> str 
+
+State 43:
+expr -> return_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> return_def 
+-- On SGL_QUOTE reduce production expr -> return_def 
+-- On SEMICOLON reduce production expr -> return_def 
+-- On R_PAREN reduce production expr -> return_def 
+-- On RETURN reduce production expr -> return_def 
+-- On REQUIRE reduce production expr -> return_def 
+-- On RB_PAREN reduce production expr -> return_def 
+-- On L_PAREN reduce production expr -> return_def 
+-- On LET reduce production expr -> return_def 
+-- On INT reduce production expr -> return_def 
+-- On FLOAT reduce production expr -> return_def 
+-- On DEF reduce production expr -> return_def 
+-- On DBL_QUOTE reduce production expr -> return_def 
+-- On COMMA reduce production expr -> return_def 
+-- On # reduce production expr -> return_def 
+
+State 44:
+expr -> require_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> require_def 
+-- On SGL_QUOTE reduce production expr -> require_def 
+-- On SEMICOLON reduce production expr -> require_def 
+-- On R_PAREN reduce production expr -> require_def 
+-- On RETURN reduce production expr -> require_def 
+-- On REQUIRE reduce production expr -> require_def 
+-- On RB_PAREN reduce production expr -> require_def 
+-- On L_PAREN reduce production expr -> require_def 
+-- On LET reduce production expr -> require_def 
+-- On INT reduce production expr -> require_def 
+-- On FLOAT reduce production expr -> require_def 
+-- On DEF reduce production expr -> require_def 
+-- On DBL_QUOTE reduce production expr -> require_def 
+-- On COMMA reduce production expr -> require_def 
+-- On # reduce production expr -> require_def 
+
+State 45:
+expr -> paren_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> paren_def 
+-- On SGL_QUOTE reduce production expr -> paren_def 
+-- On SEMICOLON reduce production expr -> paren_def 
+-- On R_PAREN reduce production expr -> paren_def 
+-- On RETURN reduce production expr -> paren_def 
+-- On REQUIRE reduce production expr -> paren_def 
+-- On RB_PAREN reduce production expr -> paren_def 
+-- On L_PAREN reduce production expr -> paren_def 
+-- On LET reduce production expr -> paren_def 
+-- On INT reduce production expr -> paren_def 
+-- On FLOAT reduce production expr -> paren_def 
+-- On DEF reduce production expr -> paren_def 
+-- On DBL_QUOTE reduce production expr -> paren_def 
+-- On COMMA reduce production expr -> paren_def 
+-- On # reduce production expr -> paren_def 
+
+State 46:
+expr -> let_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> let_def 
+-- On SGL_QUOTE reduce production expr -> let_def 
+-- On SEMICOLON reduce production expr -> let_def 
+-- On R_PAREN reduce production expr -> let_def 
+-- On RETURN reduce production expr -> let_def 
+-- On REQUIRE reduce production expr -> let_def 
+-- On RB_PAREN reduce production expr -> let_def 
+-- On L_PAREN reduce production expr -> let_def 
+-- On LET reduce production expr -> let_def 
+-- On INT reduce production expr -> let_def 
+-- On FLOAT reduce production expr -> let_def 
+-- On DEF reduce production expr -> let_def 
+-- On DBL_QUOTE reduce production expr -> let_def 
+-- On COMMA reduce production expr -> let_def 
+-- On # reduce production expr -> let_def 
+
+State 47:
+expr -> int_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> int_def 
+-- On SGL_QUOTE reduce production expr -> int_def 
+-- On SEMICOLON reduce production expr -> int_def 
+-- On R_PAREN reduce production expr -> int_def 
+-- On RETURN reduce production expr -> int_def 
+-- On REQUIRE reduce production expr -> int_def 
+-- On RB_PAREN reduce production expr -> int_def 
+-- On L_PAREN reduce production expr -> int_def 
+-- On LET reduce production expr -> int_def 
+-- On INT reduce production expr -> int_def 
+-- On FLOAT reduce production expr -> int_def 
+-- On DEF reduce production expr -> int_def 
+-- On DBL_QUOTE reduce production expr -> int_def 
+-- On COMMA reduce production expr -> int_def 
+-- On # reduce production expr -> int_def 
+
+State 48:
+expr -> function_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> function_def 
+-- On SGL_QUOTE reduce production expr -> function_def 
+-- On SEMICOLON reduce production expr -> function_def 
+-- On R_PAREN reduce production expr -> function_def 
+-- On RETURN reduce production expr -> function_def 
+-- On REQUIRE reduce production expr -> function_def 
+-- On RB_PAREN reduce production expr -> function_def 
+-- On L_PAREN reduce production expr -> function_def 
+-- On LET reduce production expr -> function_def 
+-- On INT reduce production expr -> function_def 
+-- On FLOAT reduce production expr -> function_def 
+-- On DEF reduce production expr -> function_def 
+-- On DBL_QUOTE reduce production expr -> function_def 
+-- On COMMA reduce production expr -> function_def 
+-- On # reduce production expr -> function_def 
+
+State 49:
+expr -> float_def . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production expr -> float_def 
+-- On SGL_QUOTE reduce production expr -> float_def 
+-- On SEMICOLON reduce production expr -> float_def 
+-- On R_PAREN reduce production expr -> float_def 
+-- On RETURN reduce production expr -> float_def 
+-- On REQUIRE reduce production expr -> float_def 
+-- On RB_PAREN reduce production expr -> float_def 
+-- On L_PAREN reduce production expr -> float_def 
+-- On LET reduce production expr -> float_def 
+-- On INT reduce production expr -> float_def 
+-- On FLOAT reduce production expr -> float_def 
+-- On DEF reduce production expr -> float_def 
+-- On DBL_QUOTE reduce production expr -> float_def 
+-- On COMMA reduce production expr -> float_def 
+-- On # reduce production expr -> float_def 
+
+State 50:
+expr_list -> expr_list . expr [ VAR SGL_QUOTE RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE ]
+function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list . RB_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On RB_PAREN shift to state 51
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr shift to state 52
+
+State 51:
+function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On SGL_QUOTE reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On SEMICOLON reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On R_PAREN reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On RETURN reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On REQUIRE reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On RB_PAREN reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On L_PAREN reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On LET reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On INT reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On FLOAT reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On DEF reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On DBL_QUOTE reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On COMMA reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+-- On # reduce production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+
+State 52:
+expr_list -> expr_list expr . [ VAR SGL_QUOTE RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE ]
+-- On VAR reduce production expr_list -> expr_list expr 
+-- On SGL_QUOTE reduce production expr_list -> expr_list expr 
+-- On RETURN reduce production expr_list -> expr_list expr 
+-- On REQUIRE reduce production expr_list -> expr_list expr 
+-- On RB_PAREN reduce production expr_list -> expr_list expr 
+-- On L_PAREN reduce production expr_list -> expr_list expr 
+-- On LET reduce production expr_list -> expr_list expr 
+-- On INT reduce production expr_list -> expr_list expr 
+-- On FLOAT reduce production expr_list -> expr_list expr 
+-- On DEF reduce production expr_list -> expr_list expr 
+-- On DBL_QUOTE reduce production expr_list -> expr_list expr 
+
+State 53:
+expr_list -> expr . [ VAR SGL_QUOTE RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE ]
+-- On VAR reduce production expr_list -> expr 
+-- On SGL_QUOTE reduce production expr_list -> expr 
+-- On RETURN reduce production expr_list -> expr 
+-- On REQUIRE reduce production expr_list -> expr 
+-- On RB_PAREN reduce production expr_list -> expr 
+-- On L_PAREN reduce production expr_list -> expr 
+-- On LET reduce production expr_list -> expr 
+-- On INT reduce production expr_list -> expr 
+-- On FLOAT reduce production expr_list -> expr 
+-- On DEF reduce production expr_list -> expr 
+-- On DBL_QUOTE reduce production expr_list -> expr 
+
+State 54:
+args -> args ident . [ R_PAREN IDENT_CHARS ]
+-- On R_PAREN reduce production args -> args ident 
+-- On IDENT_CHARS reduce production args -> args ident 
+
+State 55:
+let_assign -> ident EQUAL expr . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production let_assign -> ident EQUAL expr 
+-- On SGL_QUOTE reduce production let_assign -> ident EQUAL expr 
+-- On SEMICOLON reduce production let_assign -> ident EQUAL expr 
+-- On R_PAREN reduce production let_assign -> ident EQUAL expr 
+-- On RETURN reduce production let_assign -> ident EQUAL expr 
+-- On REQUIRE reduce production let_assign -> ident EQUAL expr 
+-- On RB_PAREN reduce production let_assign -> ident EQUAL expr 
+-- On L_PAREN reduce production let_assign -> ident EQUAL expr 
+-- On LET reduce production let_assign -> ident EQUAL expr 
+-- On INT reduce production let_assign -> ident EQUAL expr 
+-- On FLOAT reduce production let_assign -> ident EQUAL expr 
+-- On DEF reduce production let_assign -> ident EQUAL expr 
+-- On DBL_QUOTE reduce production let_assign -> ident EQUAL expr 
+-- On COMMA reduce production let_assign -> ident EQUAL expr 
+-- On # reduce production let_assign -> ident EQUAL expr 
+
+State 56:
+let_assign_list -> let_assign . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production let_assign_list -> let_assign 
+-- On SGL_QUOTE reduce production let_assign_list -> let_assign 
+-- On SEMICOLON reduce production let_assign_list -> let_assign 
+-- On R_PAREN reduce production let_assign_list -> let_assign 
+-- On RETURN reduce production let_assign_list -> let_assign 
+-- On REQUIRE reduce production let_assign_list -> let_assign 
+-- On RB_PAREN reduce production let_assign_list -> let_assign 
+-- On L_PAREN reduce production let_assign_list -> let_assign 
+-- On LET reduce production let_assign_list -> let_assign 
+-- On INT reduce production let_assign_list -> let_assign 
+-- On FLOAT reduce production let_assign_list -> let_assign 
+-- On DEF reduce production let_assign_list -> let_assign 
+-- On DBL_QUOTE reduce production let_assign_list -> let_assign 
+-- On COMMA reduce production let_assign_list -> let_assign 
+-- On # reduce production let_assign_list -> let_assign 
+
+State 57:
+expr_semicolon_list -> expr_semicolon_list . SEMICOLON expr [ SEMICOLON R_PAREN ]
+paren_def -> L_PAREN expr_semicolon_list . R_PAREN [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On SEMICOLON shift to state 58
+-- On R_PAREN shift to state 60
+
+State 58:
+expr_semicolon_list -> expr_semicolon_list SEMICOLON . expr [ SEMICOLON R_PAREN ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr shift to state 59
+
+State 59:
+expr_semicolon_list -> expr_semicolon_list SEMICOLON expr . [ SEMICOLON R_PAREN ]
+-- On SEMICOLON reduce production expr_semicolon_list -> expr_semicolon_list SEMICOLON expr 
+-- On R_PAREN reduce production expr_semicolon_list -> expr_semicolon_list SEMICOLON expr 
+
+State 60:
+paren_def -> L_PAREN expr_semicolon_list R_PAREN . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On SGL_QUOTE reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On SEMICOLON reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On R_PAREN reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On RETURN reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On REQUIRE reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On RB_PAREN reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On L_PAREN reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On LET reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On INT reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On FLOAT reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On DEF reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On DBL_QUOTE reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On COMMA reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+-- On # reduce production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+
+State 61:
+expr_semicolon_list -> expr . [ SEMICOLON R_PAREN ]
+-- On SEMICOLON reduce production expr_semicolon_list -> expr 
+-- On R_PAREN reduce production expr_semicolon_list -> expr 
+
+State 62:
+return_def -> RETURN expr . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production return_def -> RETURN expr 
+-- On SGL_QUOTE reduce production return_def -> RETURN expr 
+-- On SEMICOLON reduce production return_def -> RETURN expr 
+-- On R_PAREN reduce production return_def -> RETURN expr 
+-- On RETURN reduce production return_def -> RETURN expr 
+-- On REQUIRE reduce production return_def -> RETURN expr 
+-- On RB_PAREN reduce production return_def -> RETURN expr 
+-- On L_PAREN reduce production return_def -> RETURN expr 
+-- On LET reduce production return_def -> RETURN expr 
+-- On INT reduce production return_def -> RETURN expr 
+-- On FLOAT reduce production return_def -> RETURN expr 
+-- On DEF reduce production return_def -> RETURN expr 
+-- On DBL_QUOTE reduce production return_def -> RETURN expr 
+-- On COMMA reduce production return_def -> RETURN expr 
+-- On # reduce production return_def -> RETURN expr 
+
+State 63:
+var_assign -> ident EQUAL expr . [ VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA # ]
+-- On VAR reduce production var_assign -> ident EQUAL expr 
+-- On SGL_QUOTE reduce production var_assign -> ident EQUAL expr 
+-- On SEMICOLON reduce production var_assign -> ident EQUAL expr 
+-- On R_PAREN reduce production var_assign -> ident EQUAL expr 
+-- On RETURN reduce production var_assign -> ident EQUAL expr 
+-- On REQUIRE reduce production var_assign -> ident EQUAL expr 
+-- On RB_PAREN reduce production var_assign -> ident EQUAL expr 
+-- On L_PAREN reduce production var_assign -> ident EQUAL expr 
+-- On LET reduce production var_assign -> ident EQUAL expr 
+-- On INT reduce production var_assign -> ident EQUAL expr 
+-- On FLOAT reduce production var_assign -> ident EQUAL expr 
+-- On DEF reduce production var_assign -> ident EQUAL expr 
+-- On DBL_QUOTE reduce production var_assign -> ident EQUAL expr 
+-- On COMMA reduce production var_assign -> ident EQUAL expr 
+-- On # reduce production var_assign -> ident EQUAL expr 
+
+State 64:
+str -> SGL_QUOTE . single_str_contents SGL_QUOTE [ # ]
+-- On SGL_STRCH shift to state 12
+-- On single_str_contents shift to state 65
+
+State 65:
+single_str_contents -> single_str_contents . SGL_STRCH [ SGL_STRCH SGL_QUOTE ]
+str -> SGL_QUOTE single_str_contents . SGL_QUOTE [ # ]
+-- On SGL_STRCH shift to state 14
+-- On SGL_QUOTE shift to state 15
+
+State 66:
+return_def -> RETURN . expr [ # ]
+-- On VAR shift to state 1
+-- On SGL_QUOTE shift to state 64
+-- On RETURN shift to state 66
+-- On REQUIRE shift to state 67
+-- On L_PAREN shift to state 71
+-- On LET shift to state 73
+-- On INT shift to state 75
+-- On FLOAT shift to state 76
+-- On DEF shift to state 77
+-- On DBL_QUOTE shift to state 68
+-- On var_def shift to state 79
+-- On string_def shift to state 80
+-- On str shift to state 81
+-- On return_def shift to state 82
+-- On require_def shift to state 83
+-- On paren_def shift to state 84
+-- On let_def shift to state 85
+-- On int_def shift to state 86
+-- On function_def shift to state 87
+-- On float_def shift to state 88
+-- On expr shift to state 89
+
+State 67:
+require_def -> REQUIRE . str [ # ]
+-- On SGL_QUOTE shift to state 64
+-- On DBL_QUOTE shift to state 68
+-- On str shift to state 70
+
+State 68:
+str -> DBL_QUOTE . double_str_contents DBL_QUOTE [ # ]
+-- On DBL_STRCH shift to state 19
+-- On double_str_contents shift to state 69
+
+State 69:
+double_str_contents -> double_str_contents . DBL_STRCH [ DBL_STRCH DBL_QUOTE ]
+str -> DBL_QUOTE double_str_contents . DBL_QUOTE [ # ]
+-- On DBL_STRCH shift to state 21
+-- On DBL_QUOTE shift to state 22
+
+State 70:
+require_def -> REQUIRE str . [ # ]
+-- On # reduce production require_def -> REQUIRE str 
+
+State 71:
+paren_def -> L_PAREN . expr_semicolon_list R_PAREN [ # ]
+-- On VAR shift to state 8
+-- On SGL_QUOTE shift to state 11
+-- On RETURN shift to state 16
+-- On REQUIRE shift to state 17
+-- On L_PAREN shift to state 24
+-- On LET shift to state 25
+-- On INT shift to state 31
+-- On FLOAT shift to state 32
+-- On DEF shift to state 33
+-- On DBL_QUOTE shift to state 18
+-- On var_def shift to state 40
+-- On string_def shift to state 41
+-- On str shift to state 42
+-- On return_def shift to state 43
+-- On require_def shift to state 44
+-- On paren_def shift to state 45
+-- On let_def shift to state 46
+-- On int_def shift to state 47
+-- On function_def shift to state 48
+-- On float_def shift to state 49
+-- On expr_semicolon_list shift to state 72
+-- On expr shift to state 61
+
+State 72:
+expr_semicolon_list -> expr_semicolon_list . SEMICOLON expr [ SEMICOLON R_PAREN ]
+paren_def -> L_PAREN expr_semicolon_list . R_PAREN [ # ]
+-- On SEMICOLON shift to state 58
+-- On R_PAREN shift to state 60
+
+State 73:
+let_def -> LET . let_assign_list [ # ]
+-- On IDENT_CHARS shift to state 2
+-- On let_assign_list shift to state 74
+-- On let_assign shift to state 56
+-- On ident shift to state 29
+
+State 74:
+let_assign_list -> let_assign_list . COMMA let_assign [ COMMA # ]
+let_def -> LET let_assign_list . [ # ]
+-- On COMMA shift to state 27
+-- On # reduce production let_def -> LET let_assign_list 
+
+State 75:
+int_def -> INT . [ # ]
+-- On # reduce production int_def -> INT 
+
+State 76:
+float_def -> FLOAT . [ # ]
+-- On # reduce production float_def -> FLOAT 
+
+State 77:
+function_def -> DEF . ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN [ # ]
+-- On IDENT_CHARS shift to state 2
+-- On ident shift to state 78
+
+State 78:
+function_def -> DEF ident . L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN [ # ]
+-- On L_PAREN shift to state 35
+
+State 79:
+expr -> var_def . [ # ]
+-- On # reduce production expr -> var_def 
+
+State 80:
+expr -> string_def . [ # ]
+-- On # reduce production expr -> string_def 
+
+State 81:
+string_def -> str . [ # ]
+-- On # reduce production string_def -> str 
+
+State 82:
+expr -> return_def . [ # ]
+-- On # reduce production expr -> return_def 
+
+State 83:
+expr -> require_def . [ # ]
+-- On # reduce production expr -> require_def 
+
+State 84:
+expr -> paren_def . [ # ]
+-- On # reduce production expr -> paren_def 
+
+State 85:
+expr -> let_def . [ # ]
+-- On # reduce production expr -> let_def 
+
+State 86:
+expr -> int_def . [ # ]
+-- On # reduce production expr -> int_def 
+
+State 87:
+expr -> function_def . [ # ]
+-- On # reduce production expr -> function_def 
+
+State 88:
+expr -> float_def . [ # ]
+-- On # reduce production expr -> float_def 
+
+State 89:
+return_def -> RETURN expr . [ # ]
+-- On # reduce production return_def -> RETURN expr 
+
+State 90:
+main' -> main . [ # ]
+-- On # accept main
+
+State 91:
+main -> expr . [ # ]
+-- On # reduce production main -> expr 
+
+State 3 has an end-of-stream conflict. There is a tension between
+(1) reducing production var_def -> VAR var_assign_list 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is COMMA,
+which would require some other action.
+
+State 5 has an end-of-stream conflict. There is a tension between
+(1) reducing production var_assign_list -> var_assign_list COMMA var_assign 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 9 has an end-of-stream conflict. There is a tension between
+(1) reducing production var_def -> VAR var_assign_list 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 10 has an end-of-stream conflict. There is a tension between
+(1) reducing production var_assign_list -> var_assign 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 15 has an end-of-stream conflict. There is a tension between
+(1) reducing production str -> SGL_QUOTE single_str_contents SGL_QUOTE 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 22 has an end-of-stream conflict. There is a tension between
+(1) reducing production str -> DBL_QUOTE double_str_contents DBL_QUOTE 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 23 has an end-of-stream conflict. There is a tension between
+(1) reducing production require_def -> REQUIRE str 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 26 has an end-of-stream conflict. There is a tension between
+(1) reducing production let_def -> LET let_assign_list 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 28 has an end-of-stream conflict. There is a tension between
+(1) reducing production let_assign_list -> let_assign_list COMMA let_assign 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 31 has an end-of-stream conflict. There is a tension between
+(1) reducing production int_def -> INT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 32 has an end-of-stream conflict. There is a tension between
+(1) reducing production float_def -> FLOAT 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 40 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> var_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 41 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> string_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 42 has an end-of-stream conflict. There is a tension between
+(1) reducing production string_def -> str 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 43 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> return_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 44 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> require_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 45 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> paren_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 46 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> let_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 47 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> int_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 48 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> function_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 49 has an end-of-stream conflict. There is a tension between
+(1) reducing production expr -> float_def 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 51 has an end-of-stream conflict. There is a tension between
+(1) reducing production function_def -> DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 55 has an end-of-stream conflict. There is a tension between
+(1) reducing production let_assign -> ident EQUAL expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 56 has an end-of-stream conflict. There is a tension between
+(1) reducing production let_assign_list -> let_assign 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 60 has an end-of-stream conflict. There is a tension between
+(1) reducing production paren_def -> L_PAREN expr_semicolon_list R_PAREN 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 62 has an end-of-stream conflict. There is a tension between
+(1) reducing production return_def -> RETURN expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 63 has an end-of-stream conflict. There is a tension between
+(1) reducing production var_assign -> ident EQUAL expr 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is one of VAR SGL_QUOTE SEMICOLON R_PAREN RETURN REQUIRE RB_PAREN L_PAREN LET INT FLOAT DEF DBL_QUOTE COMMA,
+which would require some other action.
+
+State 74 has an end-of-stream conflict. There is a tension between
+(1) reducing production let_def -> LET let_assign_list 
+without even requesting a lookahead token, and
+(2) checking whether the lookahead token is COMMA,
+which would require some other action.
+

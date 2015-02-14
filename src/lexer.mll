@@ -2,15 +2,23 @@
   open Parser
 }
 
+let dbl_str_re = (['\"']([^'\"'])*['\"'])
+let sgl_str_re = (['\'']([^'\''])*['\''])
+let ident_chars_re = (['a'-'z']|['A'-'Z']|['_'])(['0'-'9']|['a'-'z']|['A'-'Z']|['_'])*
+
+
 rule main = parse
     [' ' '\t' '\n'] { main lexbuf }
+  | "require" { REQUIRE }
+  | "let" { LET }
+  | "var" { VAR }
+  | "def" { DEF }
+  | "return" { RETURN }
   | ['1'-'9']?['0'-'9']+ { INT (int_of_string (Lexing.lexeme lexbuf)) }
   | (['1'-'9']?['0'-'9']+['.']['0'-'9']+)|(['.']['0'-'9']+) { FLOAT (float_of_string (Lexing.lexeme lexbuf)) }
-  | ([^'"']|['\\']['"']) { DBL_STRCH (Lexing.lexeme lexbuf) }
-  | ([^''']|['\\'][''']) { SGL_STRCH (Lexing.lexeme lexbuf) }
-  | (['a'-'z']|['A'-'Z']|'_')(['0'-'9']|['a'-'z']|['A'-'Z']|'_')* { IDENT_CHARS (Lexing.lexeme lexbuf) }
-  | '"' { DBL_QUOTE }
-  | '\'' { SGL_QUOTE }
+  | dbl_str_re { DBL_STR_LITERAL (String.sub (Lexing.lexeme lexbuf) 1 ((String.length (Lexing.lexeme lexbuf)) - 2)) }
+  | sgl_str_re { SGL_STR_LITERAL (String.sub (Lexing.lexeme lexbuf) 1 ((String.length (Lexing.lexeme lexbuf)) - 2)) }
+  | ident_chars_re { IDENT_CHARS (Lexing.lexeme lexbuf) }
   | '(' { L_PAREN }
   | ')' { R_PAREN }
   | '[' { LA_PAREN }
@@ -23,8 +31,3 @@ rule main = parse
   | '.' { DOT }
   | ':' { COLON }
   | ';' { SEMICOLON }
-  | "require" { REQUIRE }
-  | "let" { LET }
-  | "var" { VAR }
-  | "def" { DEF }
-  | "return" { RETURN }
