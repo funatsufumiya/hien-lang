@@ -3,8 +3,8 @@ open Printf
 type ast =
   | UNDEFINED
   | REQUIRE of string
-  | LET of string * ast
-  | VAR of string * ast
+  | LET of (string * ast) list
+  | VAR of (string * ast) list
   | STRING of string
   | INT of int
   | FLOAT of float
@@ -18,13 +18,13 @@ let print_parse_result lst =
     match e with
       UNDEFINED -> print_string "UNDEFINED "
     | REQUIRE(lib) -> printf "REQUIRE(\"%s\") " lib
-    | LET(name,e) ->
-      printf "LET(%s, " name;
-      print_ast e;
+    | LET(lst) ->
+      print_string "LET(";
+      List.iter (fun stmt -> print_string ((fst stmt) ^ " = "); print_ast (snd stmt); print_string "\b; ") (lst);
       print_string ") "
-    | VAR(name,e) ->
-      printf "VAR(%s, " name;
-      print_ast e;
+    | VAR(lst) ->
+      print_string "VAR(";
+      List.iter (fun stmt -> print_string ((fst stmt) ^ " = "); print_ast (snd stmt); print_string "\b; ") (lst);
       print_string ") "
     | STRING(s) -> printf "STRING(\"%s\") " s
     | INT(i) -> printf "INT(%d) " i
