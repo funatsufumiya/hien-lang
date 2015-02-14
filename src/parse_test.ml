@@ -2,7 +2,7 @@
 let parse s =
   let lexbuf = Lexing.from_string s in
   let ast = Parser.main Lexer.main lexbuf in
-  let _ = print_string ("- '" ^ s ^ "': \n\t") in
+  print_string ("- '" ^ s ^ "': \n\t");
   Ast.print_ast ast;
   print_string "\n"
 ;;
