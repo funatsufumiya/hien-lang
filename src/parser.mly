@@ -101,7 +101,7 @@ var_assign_list
   ;
 
 let_assign
-  : ident EQUAL expr { ($1,$3) }
+  : ident EQUAL expr { print_string $1;($1,$3) }
   ;
 
 var_assign
