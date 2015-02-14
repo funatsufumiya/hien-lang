@@ -31,3 +31,4 @@ rule main = parse
   | '.' { DOT }
   | ':' { COLON }
   | ';' { SEMICOLON }
+  | eof { EOF }

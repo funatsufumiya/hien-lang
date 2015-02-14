@@ -17,6 +17,7 @@
 %token REQUIRE
 %token LET VAR DEF
 %token RETURN
+%token EOF
 
 %start main
 %type <Ast.ast> main
@@ -24,7 +25,7 @@
 %%
 
 main
-  : expr { $1 }
+  : expr EOF { $1 }
   ;
 
 expr
@@ -101,7 +102,7 @@ var_assign_list
   ;
 
 let_assign
-  : ident EQUAL expr { print_string $1;($1,$3) }
+  : ident EQUAL expr { ($1,$3) }
   ;
 
 var_assign
