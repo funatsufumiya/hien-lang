@@ -87,8 +87,14 @@ expr_list
   ;
 
 args
-  : args ident { List.append $1 [$2] }
-  | ident { [$1] }
+  : args ident_with_type { List.append $1 [$2] }
+  | ident_with_type { [$1] }
+  | { [] }
+  ;
+
+ident_with_type
+  : ident COLON ident { ($1,$3) }
+  | ident { ($1,"") }
   ;
 
 let_assign_list

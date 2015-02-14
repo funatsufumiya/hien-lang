@@ -21,5 +21,7 @@ let _ =
   parse "var this_is_test2 = .65";
 
   parse "var s = \"the string %$^&\"";
-  parse "var a = \"Apple\", b = \"Banana\""
+  parse "var a = \"Apple\", b = \"Banana\"";
+
+  parse "def fn1(n:Int){ return 3}"
 ;;

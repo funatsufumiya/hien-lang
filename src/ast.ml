@@ -8,7 +8,7 @@ type ast =
   | STRING of string
   | INT of int
   | FLOAT of float
-  | FUNCTION of string * string list * ast list
+  | FUNCTION of string * (string * string) list * ast list
   | RETURN of ast
   | PAREN of ast list
 ;;
@@ -29,15 +29,15 @@ let rec print_ast e =
   | INT(i) -> printf "INT(%d) " i
   | FLOAT(f) -> printf "FLOAT(%f) " f
   | FUNCTION(funcname, args, exprs) -> 
-    printf "FUNCTION(\"%s\"," funcname;
-    List.iter (fun name -> print_string (name ^ "; ")) args;
-    print_string ", ";
-    List.iter (fun e -> print_ast e; print_string "; ") exprs;
+    printf "FUNCTION(\"%s\", [" funcname;
+    List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
+    print_string "\b\b], ";
+    List.iter (fun e -> print_ast e; print_string "\b; ") exprs;
     print_string "\b) "
   | RETURN(e) ->
     print_string "RETURN( ";
     print_ast e;
-    print_string "\b) "
+    print_string ") "
   | PAREN(exprs) ->
     print_string "PAREN( ";
     List.iter (fun e -> print_ast e) exprs;
