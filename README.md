@@ -1,6 +1,11 @@
 # Hien language
 
-**Status:** Implementing (Almost ideas)
+**Status:** Implementing
+
+## Coverages
+
+- Parse: (partial)
+- Generate C++: No
 
 ## Ideas
 
