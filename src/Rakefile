@@ -40,19 +40,19 @@ def compileAll
 end
 
 def cleanAll
-  s =
-  ["rm -rf *.cmi *.cmx *.mli *.o",
+  allGabages =
+  ["*.cmi *.cmx *.mli *.o",
    "*.extract_type parser_temp.ml parser.ml lexer.ml #{DIST}/*",
    "*.automaton *.conflicts"]
-  sh "#{s.join(' ')}"
+  sh "rm -rf #{allGabages.join(' ')}"
 end
 
 def cleanGarbages
-  s =
-  ["rm -rf *.cmi *.cmx *.mli *.o",
+  gabages =
+  ["*.cmi *.cmx *.mli *.o",
    "*.extract_type parser_temp.ml lexer.mli",
    "*.automaton *.conflicts"]
-  sh "#{s.join(' ')}"
+  sh "rm -rf #{gabages.join(' ')}"
 end
 
 def batchCompile(sources)
