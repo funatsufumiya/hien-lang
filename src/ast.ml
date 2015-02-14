@@ -43,11 +43,6 @@ let rec print_ast e =
     List.iter (fun e -> print_ast e) exprs;
     print_string "\b) "
 ;;
-  
-let print_parse_result lst =
-  List.iter (fun t -> print_ast (fst t); print_string "\n") lst
-;;
-
 
 let debug_let lst =
   print_string "[";

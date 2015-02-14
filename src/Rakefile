@@ -10,12 +10,15 @@ CFLAGS = "-Wall"
 OCAMLOPT = "ocamlopt"
 OCAMLC = "ocamlc"
 OCAMLFIND = "ocamlfind"
-DYPGEN = "dypgen"
 
-LIBS = "dyp"
-SOURCES = "ast.ml parser.ml parse_test.ml" 
+OCAMLLEX = "ocamllex"
+OCAMLYACC = "menhir"
 
-OCAMLFIND_FLAGS = "-linkpkg -package #{LIBS}"
+LIBS = ""
+SOURCES = "ast.ml parser.mli parser.ml lexer.ml parse_test.ml" 
+
+PACKAGE = if LIBS == "" then "" else "-linkpkg -packge #{LIBS}" end
+OCAMLFIND_FLAGS = "#{PACKAGE}"
 
 # Files =======
 
@@ -38,14 +41,14 @@ end
 
 def cleanAll
   s =
-  ["rm -rf *.cmi *.cmx *.o",
-   "*.extract_type parser_temp.ml parser.ml lexer.mli #{DIST}/*"]
+  ["rm -rf *.cmi *.cmx *.mli *.o",
+   "*.extract_type parser_temp.ml parser.ml lexer.ml #{DIST}/*"]
   sh "#{s.join(' ')}"
 end
 
 def cleanGarbages
   s =
-  ["rm -rf *.cmi *.cmx *.o",
+  ["rm -rf *.cmi *.cmx *.mli *.o",
    "*.extract_type parser_temp.ml lexer.mli"]
   sh "#{s.join(' ')}"
 end
@@ -55,5 +58,6 @@ def batchCompile(sources)
 end
 
 def generateParser
-  sh "#{DYPGEN} --no-mli parser.dyp"
+  sh "#{OCAMLLEX} lexer.mll"
+  sh "#{OCAMLYACC} parser.mly"
 end

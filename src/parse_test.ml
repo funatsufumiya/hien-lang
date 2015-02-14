@@ -1,8 +1,9 @@
+
 let parse s =
-  let lexbuf = Dyp.from_string (Parser.pp ()) s in
-  let lst = (Parser.main lexbuf) in
-  print_string ("- '" ^ s ^ "': \n\t");
-  Ast.print_parse_result lst
+  let lexbuf = Lexing.from_string s in
+  let ast = Parser.main Lexer.main lexbuf in
+  let _ = print_string ("- '" ^ s ^ "': \n\t") in
+  Ast.print_ast ast
 ;;
 
 let _ = 
