@@ -3,6 +3,8 @@
 *.cmx
 *.o
 *.extract_type
+*.automaton
+*.conflicts
 parser_temp.ml
 parser.ml
 lexer.mli

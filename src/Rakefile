@@ -42,14 +42,16 @@ end
 def cleanAll
   s =
   ["rm -rf *.cmi *.cmx *.mli *.o",
-   "*.extract_type parser_temp.ml parser.ml lexer.ml #{DIST}/*"]
+   "*.extract_type parser_temp.ml parser.ml lexer.ml #{DIST}/*",
+   "*.automaton *.conflicts"]
   sh "#{s.join(' ')}"
 end
 
 def cleanGarbages
   s =
   ["rm -rf *.cmi *.cmx *.mli *.o",
-   "*.extract_type parser_temp.ml lexer.mli"]
+   "*.extract_type parser_temp.ml lexer.mli",
+   "*.automaton *.conflicts"]
   sh "#{s.join(' ')}"
 end
 
