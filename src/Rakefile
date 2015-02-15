@@ -8,14 +8,13 @@ CC = "gcc"
 CFLAGS = "-Wall"
 
 OCAMLOPT = "ocamlopt"
-OCAMLC = "ocamlc"
 OCAMLFIND = "ocamlfind"
 
 OCAMLLEX = "ocamllex"
 OCAMLYACC = "menhir"
 
 LIBS = ""
-SOURCES = "ast.ml parser.mli parser.ml lexer.ml parse_test.ml" 
+SOURCES = "str.cmxa ast.ml parser.mli parser.ml lexer.ml parse_test.ml" 
 
 PACKAGE = if LIBS == "" then "" else "-linkpkg -packge #{LIBS}" end
 OCAMLFIND_FLAGS = "#{PACKAGE}"

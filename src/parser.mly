@@ -16,6 +16,7 @@
 %token DBL_EQUAL
 %token REQUIRE
 %token LET VAR DEF
+%token LT GT
 %token PLUS MINUS TIMES DIV
 %token RETURN
 %token EOF
@@ -54,6 +55,7 @@ expr
   | float_def { $1 }
   | string_def { $1 }
   | paren_def { $1 }
+  | anon_func_def { $1 }
   | value_def { $1 }
   | func_call_def { $1 }
   | binary_op_def { $1 }
@@ -105,6 +107,7 @@ paren_def
 func_call_def
   : method_chain L_PAREN args R_PAREN { Ast.FUNC_CALL($1,$3) }
   | ident L_PAREN args R_PAREN { Ast.FUNC_CALL(Ast.VARIABLE($1),$3) }
+  | anon_func_def L_PAREN args R_PAREN { Ast.FUNC_CALL($1,$3) }
   ;
 
 value_def
@@ -117,6 +120,11 @@ binary_op_def
   | expr MINUS expr { Ast.BIN_OP("MINUS",$1,$3) }
   | expr TIMES expr { Ast.BIN_OP("TIMES",$1,$3) }
   | expr DIV expr { Ast.BIN_OP("DIV",$1,$3) }
+  ;
+
+anon_func_def
+  : L_PAREN L_PAREN args_with_type R_PAREN EQUAL GT func_expr_list R_PAREN { Ast.ANON_FUNC($3, $7) }
+  | L_PAREN args_with_type EQUAL GT func_expr_list R_PAREN { Ast.ANON_FUNC($2, $5) }
   ;
 
 method_chain

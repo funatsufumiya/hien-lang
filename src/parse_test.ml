@@ -1,8 +1,8 @@
 
 let parse s =
+  let _ = print_string ("- '" ^ s ^ "': \n\t") in
   let lexbuf = Lexing.from_string s in
   let ast = Parser.main Lexer.main lexbuf in
-  print_string ("- '" ^ s ^ "': \n\t");
   Ast.print_ast ast;
   print_string "\n"
 ;;
@@ -22,5 +22,9 @@ let _ =
 
   parse "let a = sqrt(4)";
   parse "let a = 1 + 2";
-  parse "var n = 3\n let a = max(5,10) + n"
+  parse "var n = 3\n let a = max(5,10) + n";
+
+  parse "let result = (n:Int => n*2)(5)";
+
+  parse "# this is comment"
 ;;

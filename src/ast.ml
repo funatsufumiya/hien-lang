@@ -8,6 +8,7 @@ type ast =
   | STRING of string
   | INT of int
   | FLOAT of float
+  | ANON_FUNC of (string * string) list * ast list
   | FUNCTION_DEF of string * (string * string) list * ast list
   | RETURN of ast
   | PAREN of ast list
@@ -33,6 +34,12 @@ let rec print_ast e =
   | STRING(s) -> printf "STRING(\"%s\") " s
   | INT(i) -> printf "INT(%d) " i
   | FLOAT(f) -> printf "FLOAT(%f) " f
+  | ANON_FUNC(args, exprs) ->
+    print_string "ANON_FUNC([";
+    List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
+    print_string "\b\b], ";
+    List.iter (fun e -> print_ast e; print_string "\b; ") exprs;
+    print_string "\b) "
   | FUNCTION_DEF(funcname, args, exprs) -> 
     printf "FUNCTION_DEF(\"%s\", [" funcname;
     List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
@@ -73,6 +80,18 @@ let rec print_ast e =
     print_string "\b\b ]) "
 ;;
 
+let pos_num = ref 0;;
+let line_num = ref 0;;
+
+let update_newline =
+  pos_num := 0;
+  line_num := !line_num + 1
+;;
+
+let update_pos len =
+  pos_num := !pos_num + len
+;;
+  
 let debug_let lst =
   print_string "[";
   List.iter (fun tp -> printf "(%s, " (fst tp); print_ast (snd tp); print_string "\b)") lst;
