@@ -4,7 +4,16 @@
 
 ## Coverages
 
-- Parse: (partial)
+- Parse:
+  - let definition
+  - var definition
+  - simple string
+  - function (partial)
+  - binary operation
+  - function call
+  - method chain (partial)
+  - parenthes
+
 - Generate C++: No
 
 ## Ideas
