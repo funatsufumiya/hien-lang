@@ -32,6 +32,7 @@
 
 main
   : toplevel_scope EOF { $1 }
+  | EOF { Ast.NO_CODE }
   ;
 
 toplevel_scope

@@ -2,6 +2,7 @@ open Printf
 
 type ast =
   | UNDEFINED
+  | NO_CODE
   | REQUIRE of string
   | LET_DECLARE of (string * ast) list
   | VAR_DECLARE of (string * ast) list
@@ -22,6 +23,7 @@ type ast =
 let rec print_ast e =
   match e with
     UNDEFINED -> print_string "UNDEFINED "
+  | NO_CODE -> print_string "NO CODE "
   | REQUIRE(lib) -> printf "REQUIRE(\"%s\") " lib
   | LET_DECLARE(lst) ->
     print_string "LET_DECLARE(";

@@ -26,5 +26,6 @@ let _ =
 
   parse "let result = (n:Int => n*2)(5)";
 
-  parse "# this is comment"
+  parse "# this is comment";
+  parse "let a = 3 # a is 3"
 ;;

@@ -32,8 +32,8 @@ rule main = parse
   | '-' { MINUS }
   | '*' { TIMES }
   | '/' { DIV }
-  | ['1'-'9']?['0'-'9']+ { INT (int_of_string (ss lexbuf)) }
-  | (['1'-'9']?['0'-'9']+['.']['0'-'9']+)|(['.']['0'-'9']+) { FLOAT (float_of_string (ss lexbuf)) }
+  | (['1'-'9']['0'-'9']+|['0'-'9']) { INT (int_of_string (ss lexbuf)) }
+  | ((['1'-'9']['0'-'9']+|['0'-'9'])?['.']['0'-'9']+)|(['.']['0'-'9']+) { FLOAT (float_of_string (ss lexbuf)) }
   | dbl_str_re { DBL_STR_LITERAL (trim_string 1 1 (ss lexbuf)) }
   | sgl_str_re { SGL_STR_LITERAL (trim_string 1 1 (ss lexbuf)) }
   | ident_chars_re { IDENT_CHARS (ss lexbuf) }
