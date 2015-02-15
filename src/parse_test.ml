@@ -8,11 +8,6 @@ let parse s =
 ;;
 
 let _ = 
-  parse "1";
-  parse "45";
-  parse "4.67";
-  parse "\"test\"";
-
   parse "let an_int = 3";
   parse "let intVal = 463";
   parse "let intVal2 = (463)";
@@ -23,5 +18,8 @@ let _ =
   parse "var s = \"the string %$^&\"";
   parse "var a = \"Apple\", b = \"Banana\"";
 
-  parse "def fn1(n:Int){ return 3}"
+  parse "def fn1(n:Int){ return 3 }";
+
+  parse "let a = sqrt(4)";
+  parse "let a = 1 + 2"
 ;;

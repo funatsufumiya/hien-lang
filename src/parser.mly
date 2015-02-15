@@ -16,8 +16,13 @@
 %token DBL_EQUAL
 %token REQUIRE
 %token LET VAR DEF
+%token PLUS MINUS TIMES DIV
 %token RETURN
 %token EOF
+
+%left PLUS MINUS
+%left TIMES DIV
+%nonassoc UMINUS 
 
 %start main
 %type <Ast.ast> main
@@ -25,7 +30,14 @@
 %%
 
 main
-  : expr EOF { $1 }
+  : toplevel_scope EOF { $1 }
+  ;
+
+toplevel_scope
+  : require_def { $1 }
+  | let_def { $1 }
+  | var_def { $1 }
+  | function_def { $1 }
   ;
 
 expr
@@ -35,9 +47,10 @@ expr
   | int_def { $1 }
   | float_def { $1 }
   | string_def { $1 }
-  | function_def { $1 }
-  | return_def { $1 }
   | paren_def { $1 }
+  | value_def { $1 }
+  | func_call_def { $1 }
+  | binary_op_def { $1 }
   ;
 
 require_def
@@ -45,11 +58,11 @@ require_def
   ;
 
 let_def
-  : LET let_assign_list { Ast.LET($2) }
+  : LET let_assign_list { Ast.LET_DECLARE($2) }
   ;
 
 var_def
-  : VAR var_assign_list { Ast.VAR($2) }
+  : VAR var_assign_list { Ast.VAR_DECLARE($2) }
   ;
 
 int_def
@@ -65,7 +78,7 @@ string_def
   ;
 
 function_def
-  : DEF ident L_PAREN args R_PAREN LB_PAREN expr_list RB_PAREN { Ast.FUNCTION($2, $4, $7) }
+  : DEF ident L_PAREN args_with_type R_PAREN LB_PAREN func_expr_list RB_PAREN { Ast.FUNCTION_DEF($2, $4, $7) }
   ;
 
 return_def
@@ -76,18 +89,55 @@ paren_def
   : L_PAREN expr_semicolon_list R_PAREN { Ast.PAREN($2) }
   ;
 
+func_call_def
+  : method_chain L_PAREN args R_PAREN { Ast.FUNC_CALL($1,$3) }
+  ;
+
+value_def
+  : method_chain { $1 }
+  | L_PAREN method_chain R_PAREN { $2 }
+  ;
+
+binary_op_def
+  : expr PLUS expr { Ast.BIN_OP("PLUS",$1,$3) }
+  | expr MINUS expr { Ast.BIN_OP("MINUS",$1,$3) }
+  | expr TIMES expr { Ast.BIN_OP("TIMES",$1,$3) }
+  | expr DIV expr { Ast.BIN_OP("DIV",$1,$3) }
+  ;
+
+method_chain
+  : method_chain DOT variant_value { Ast.METHOD_VALUE($1,$3) }
+  | variant_value { $1 }
+  ;
+
+variant_value
+  : variant_value_unit { $1 }
+  ;
+
+variant_value_unit
+  : func_call_def { $1 }
+  | ident { Ast.VARIABLE($1) }
+  ;
+
 expr_semicolon_list
   : expr_semicolon_list SEMICOLON expr { List.append $1 [$3] }
   | expr { [$1] }
   ;
 
-expr_list
-  : expr_list expr { List.append $1 [$2] }
+func_expr_list
+  : func_expr_list expr { List.append $1 [$2] }
   | expr { [$1] }
+  | return_def { [$1] }
   ;
 
 args
-  : args ident_with_type { List.append $1 [$2] }
+  : args expr { List.append $1 [$2] }
+  | expr { [$1] }
+  | { [] }
+  ;
+
+args_with_type
+  : args_with_type ident_with_type { List.append $1 [$2] }
   | ident_with_type { [$1] }
   | { [] }
   ;

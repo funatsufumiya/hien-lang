@@ -14,6 +14,10 @@ rule main = parse
   | "var" { VAR }
   | "def" { DEF }
   | "return" { RETURN }
+  | '+' { PLUS }
+  | '-' { MINUS }
+  | '*' { TIMES }
+  | '/' { DIV }
   | ['1'-'9']?['0'-'9']+ { INT (int_of_string (Lexing.lexeme lexbuf)) }
   | (['1'-'9']?['0'-'9']+['.']['0'-'9']+)|(['.']['0'-'9']+) { FLOAT (float_of_string (Lexing.lexeme lexbuf)) }
   | dbl_str_re { DBL_STR_LITERAL (String.sub (Lexing.lexeme lexbuf) 1 ((String.length (Lexing.lexeme lexbuf)) - 2)) }
