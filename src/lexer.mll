@@ -37,7 +37,7 @@ rule main = parse
   | dbl_str_re { DBL_STR_LITERAL (trim_string 1 1 (ss lexbuf)) }
   | sgl_str_re { SGL_STR_LITERAL (trim_string 1 1 (ss lexbuf)) }
   | ident_chars_re { IDENT_CHARS (ss lexbuf) }
-  | ['#'][^ '\n' '\r'] { main lexbuf }
+  | ['#'][^ '\n' '\r']+ { main lexbuf }
   | '(' { L_PAREN }
   | ')' { R_PAREN }
   | '[' { LA_PAREN }
