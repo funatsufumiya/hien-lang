@@ -7,11 +7,11 @@
 - ocaml
 - ocamlfind
 - opam
-- dypgen
+- menhir
 
 ```bash
 brew install opam
 brew install rake
 
-opam install dypgen
+opam install menhir
 ```
