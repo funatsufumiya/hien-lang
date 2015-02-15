@@ -15,6 +15,9 @@ let _ =
   parse "let this_is_test = 3.45";
   parse "var this_is_test2 = .65";
 
+  parse "let t = true";
+  parse "let f = false";
+
   parse "var s = \"the string %$^&\"";
   parse "var a = \"Apple\", b = \"Banana\"";
 

@@ -28,6 +28,8 @@ rule main = parse
   | "var" { VAR }
   | "def" { DEF }
   | "return" { RETURN }
+  | "true" { TRUE }
+  | "false" { FALSE }
   | '+' { PLUS }
   | '-' { MINUS }
   | '*' { TIMES }

@@ -9,6 +9,8 @@ type ast =
   | STRING of string
   | INT of int
   | FLOAT of float
+  | TRUE
+  | FALSE
   | ANON_FUNC of (string * string) list * ast list
   | FUNCTION_DEF of string * (string * string) list * ast list
   | RETURN of ast
@@ -36,6 +38,8 @@ let rec print_ast e =
   | STRING(s) -> printf "STRING(\"%s\") " s
   | INT(i) -> printf "INT(%d) " i
   | FLOAT(f) -> printf "FLOAT(%f) " f
+  | TRUE -> print_string "TRUE "
+  | FALSE -> print_string "FALSE "
   | ANON_FUNC(args, exprs) ->
     print_string "ANON_FUNC([";
     List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;

@@ -5,6 +5,7 @@
 %token <string> IDENT_CHARS
 %token <string> DBL_STR_LITERAL
 %token <string> SGL_STR_LITERAL
+%token TRUE FALSE
 %token L_PAREN R_PAREN
 %token LA_PAREN RA_PAREN
 %token LB_PAREN RB_PAREN
@@ -54,6 +55,7 @@ top_expr
 expr
   : int_def { $1 }
   | float_def { $1 }
+  | bool_def { $1 }
   | string_def { $1 }
   | paren_def { $1 }
   | anon_func_def { $1 }
@@ -87,6 +89,11 @@ int_def
 
 float_def
   : FLOAT { Ast.FLOAT($1) }
+  ;
+
+bool_def
+  : TRUE { Ast.TRUE }
+  | FALSE { Ast.FALSE }
   ;
 
 string_def

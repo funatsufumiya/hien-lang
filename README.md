@@ -8,7 +8,7 @@
   - let definition
   - var definition
   - simple string
-  - int, float
+  - int, float, bool
   - function (partial)
   - binary operation
   - function call
