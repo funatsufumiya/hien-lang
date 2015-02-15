@@ -16,6 +16,7 @@
   - parenthes
   - anonymous function
   - line comment
+  - multi-line comment
 
 - Generate C++: No
 
