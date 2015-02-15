@@ -42,13 +42,23 @@ let rec print_ast e =
   | FALSE -> print_string "FALSE "
   | ANON_FUNC(args, exprs) ->
     print_string "ANON_FUNC([";
-    List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
-    print_string "\b\b], ";
+
+    if (List.length args) = 0 then
+      print_string "  "
+    else 
+      List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
+
+    print_string "\b\b], [";
     List.iter (fun e -> print_ast e; print_string "\b; ") exprs;
-    print_string "\b) "
+    print_string "\b]) "
   | FUNCTION_DEF(funcname, args, exprs) -> 
     printf "FUNCTION_DEF(\"%s\", [" funcname;
-    List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
+
+    if (List.length args) = 0 then
+      print_string "  "
+    else 
+      List.iter (fun t -> print_string ((fst t) ^ ":" ^ (snd t) ^ ", ")) args;
+
     print_string "\b\b], ";
     List.iter (fun e -> print_ast e; print_string "\b; ") exprs;
     print_string "\b) "
@@ -66,7 +76,12 @@ let rec print_ast e =
     print_string "FUNC_CALL(";
     print_ast e;
     print_string "\b, [ ";
-    List.iter (fun e -> print_ast e; print_string "\b, ") args;
+
+    if (List.length args) = 0 then
+      print_string "  "
+    else 
+      List.iter (fun e -> print_ast e; print_string "\b, ") args;
+      
     print_string "\b\b ]) "
   | METHOD_VALUE(e1,e2) ->
     print_string "METHOD_VALUE(";

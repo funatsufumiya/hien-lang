@@ -22,12 +22,14 @@ let _ =
   parse "var a = \"Apple\", b = \"Banana\"";
 
   parse "def fn1(n:Int){ return max(n, 3) }";
+  parse "def fn2(){ puts('hello, world') }";
 
   parse "let a = sqrt(4)";
   parse "let a = 1 + 2";
   parse "var n = 3\n let a = max(5,10) + n";
 
   parse "let result = (n:Int => n*2)(5)";
+  parse "let result = (=> puts(\"hello\"))()";
 
   parse "# this is comment";
   parse "let a = 3 # a is 3";
