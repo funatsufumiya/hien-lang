@@ -15,6 +15,7 @@ type ast =
   | FUNC_CALL of ast * ast list
   | METHOD_VALUE of ast * ast
   | BIN_OP of string * ast * ast
+  | EXPR_LIST of ast list
 ;;
 
 let rec print_ast e =
@@ -51,9 +52,9 @@ let rec print_ast e =
   | FUNC_CALL(e, args) ->
     print_string "FUNC_CALL(";
     print_ast e;
-    print_string "\b, [";
+    print_string "\b, [ ";
     List.iter (fun e -> print_ast e; print_string "\b, ") args;
-    print_string "\b\b]) "
+    print_string "\b\b ]) "
   | METHOD_VALUE(e1,e2) ->
     print_string "METHOD_VALUE(";
     print_ast e1;
@@ -66,6 +67,10 @@ let rec print_ast e =
     print_string "\b, ";
     print_ast e2;
     print_string "\b) "
+  | EXPR_LIST(lst) ->
+    print_string "EXPR_LIST([ ";
+    List.iter (fun e -> print_ast e; print_string "\b, ") lst;
+    print_string "\b\b ]) "
 ;;
 
 let debug_let lst =

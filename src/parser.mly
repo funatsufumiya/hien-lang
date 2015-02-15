@@ -34,6 +34,15 @@ main
   ;
 
 toplevel_scope
+  : top_expr_list { Ast.EXPR_LIST($1) }
+  ;
+
+top_expr_list
+  : top_expr_list top_expr { List.append $1 [$2] }
+  | top_expr { [$1] }
+  ;
+
+top_expr
   : require_def { $1 }
   | let_def { $1 }
   | var_def { $1 }
@@ -41,16 +50,20 @@ toplevel_scope
   ;
 
 expr
-  : require_def { $1 }
-  | let_def { $1 }
-  | var_def { $1 }
-  | int_def { $1 }
+  : int_def { $1 }
   | float_def { $1 }
   | string_def { $1 }
   | paren_def { $1 }
   | value_def { $1 }
   | func_call_def { $1 }
   | binary_op_def { $1 }
+  ;
+
+func_expr
+  : let_def { $1 }
+  | var_def { $1 }
+  | return_def { $1 }
+  | expr { $1 }
   ;
 
 require_def
@@ -91,6 +104,7 @@ paren_def
 
 func_call_def
   : method_chain L_PAREN args R_PAREN { Ast.FUNC_CALL($1,$3) }
+  | ident L_PAREN args R_PAREN { Ast.FUNC_CALL(Ast.VARIABLE($1),$3) }
   ;
 
 value_def
@@ -125,13 +139,12 @@ expr_semicolon_list
   ;
 
 func_expr_list
-  : func_expr_list expr { List.append $1 [$2] }
-  | expr { [$1] }
-  | return_def { [$1] }
+  : func_expr_list func_expr { List.append $1 [$2] }
+  | func_expr { [$1] }
   ;
 
 args
-  : args expr { List.append $1 [$2] }
+  : args COMMA expr { List.append $1 [$3] }
   | expr { [$1] }
   | { [] }
   ;

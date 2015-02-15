@@ -18,8 +18,9 @@ let _ =
   parse "var s = \"the string %$^&\"";
   parse "var a = \"Apple\", b = \"Banana\"";
 
-  parse "def fn1(n:Int){ return 3 }";
+  parse "def fn1(n:Int){ return max(n, 3) }";
 
   parse "let a = sqrt(4)";
-  parse "let a = 1 + 2"
+  parse "let a = 1 + 2";
+  parse "var n = 3\n let a = max(5,10) + n"
 ;;
